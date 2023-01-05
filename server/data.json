@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Utif milkedori",
+            "email": "utifmd@gmail.com",
+            "imageUrl": "https://via.placeholder.com/150",
+            "username": "utifmd",
+            "password": "121212"
+        }
+    ],
+    "brands": [
+        {
+            "id": 1,
+            "name": "Toyota",
+            "country": "Japan"
+        },
+        {
+            "id": 2,
+            "name": "Ferrari",
+            "country": "Italy"
+        }
+    ],
+    "items": [
+        {
+            "id": 1,
+            "name": "Ferrari F40",
+            "price": 21000000000,
+            "imageUrl": "https://via.placeholder.com/150",
+            "category": "Sport Car",
+            "BrandId": 2,
+            "UserId": 1
+        },
+        {
+            "id": 2,
+            "name": "Avanza Veloz",
+            "price": 37000000,
+            "imageUrl": "https://via.placeholder.com/150",
+            "category": "City Car",
+            "BrandId": 1,
+            "UserId": 1
+        }
+    ]
+}
