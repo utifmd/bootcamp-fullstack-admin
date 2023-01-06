@@ -1,9 +1,9 @@
-import Navbar from "./presentation/views/partials/NavBar"
+import { Home, Login, Register } from "./presentation/views/pages"
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <Login />
     </div>
   );
 }

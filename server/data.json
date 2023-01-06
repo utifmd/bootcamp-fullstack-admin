@@ -2,43 +2,53 @@
     "users": [
         {
             "id": 1,
-            "name": "Utif milkedori",
+            "name": "Utif Milkedori",
+            "role": "admin",
+            "identityNumber": 1001,
+            "telp": "+62 852-7286-9008",
             "email": "utifmd@gmail.com",
+            "password": "121212",
             "imageUrl": "https://via.placeholder.com/150",
-            "username": "utifmd",
-            "password": "121212"
-        }
-    ],
-    "brands": [
-        {
-            "id": 1,
-            "name": "Toyota",
-            "country": "Japan"
+            "createdAt": "2022-12-26 11:22:17.87+00",
+            "updatedAt": null
         },
         {
             "id": 2,
-            "name": "Ferrari",
-            "country": "Italy"
+            "name": "Brad pitt",
+            "role": "driver",
+            "identityNumber": 1002,
+            "telp": "+62 852-7286-9009",
+            "email": "bradpitt@gmail.com",
+            "password": "121212",
+            "imageUrl": "https://via.placeholder.com/150",
+            "createdAt": "2022-12-26 11:22:17.87+00",
+            "updatedAt": null
         }
     ],
-    "items": [
+    "vehicles": [
         {
             "id": 1,
-            "name": "Ferrari F40",
-            "price": 21000000000,
+            "name": "Angkot B01",
+            "status": null,
+            "route": "Kebayoran lama - Ciledug",
+            "passengerCapacity": 6,
+            "policeNumber": "B 1001 BA",
+            "vendor": "Toyota",
             "imageUrl": "https://via.placeholder.com/150",
-            "category": "Sport Car",
-            "BrandId": 2,
-            "UserId": 1
-        },
+            "userId": 2,
+            "createdAt": "2022-12-26 11:22:17.87+00",
+            "updatedAt": null
+        }
+    ],
+    "histories": [
         {
-            "id": 2,
-            "name": "Avanza Veloz",
-            "price": 37000000,
-            "imageUrl": "https://via.placeholder.com/150",
-            "category": "City Car",
-            "BrandId": 1,
-            "UserId": 1
+            "id": 1,
+            "fuel": 300000,
+            "income": null,
+            "vehicleId": 1,
+            "userId": 2,
+            "createdAt": "2022-12-26 11:22:17.87+00",
+            "updatedAt": null
         }
     ]
 }

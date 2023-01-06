@@ -13,13 +13,10 @@ const NavBar = () => <>
                 </ul>
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        <a className="nav-link" href="#top">Items</a>
+                        <a className="nav-link" href="#top">Vehicles</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#top">Brands</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#top">Users</a>
+                        <a className="nav-link" href="#top">Drivers</a>
                     </li>
                 </ul>
             </div>
