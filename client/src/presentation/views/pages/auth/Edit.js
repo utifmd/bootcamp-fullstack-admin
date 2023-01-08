@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { Header } from "../../components"
 const fields = {
-    email: "",
+    currentPassword: "",
     password: "",
     confirmPassword: "",
 }
-const Register = () => {
+const Edit = () => {
     const [form, setForm] = useState({ fields, error: {}, loading: false })
     const onValueChange = (e) => {
         let name = e.target.name
@@ -17,10 +17,10 @@ const Register = () => {
         setForm(form)
     }
     const isFormValiated = () => {
-        const { email, password, confirmPassword } = form.fields
+        const { currentPassword, password, confirmPassword } = form.fields
         let error = {}
-        if (!email) error.email = "Email could not be empty."
-        if (!password) error.password = "Password could not be empty."
+        if (!currentPassword) error.currentPassword = "Current password could not be empty."
+        if (!password) error.password = "New password could not be empty."
         if (!confirmPassword) error.confirmPassword = "Confirm password could not be empty."
         if (confirmPassword !== password) error.confirmPassword = "Passwords does not match."
 
@@ -43,22 +43,22 @@ const Register = () => {
         <div className="container">
             <div className="col-md-10 mx-auto col-lg-5">
                 <form className="p-4 p-md-5 border rounded-3 bg-light">
-                    <div className="lead mb-3">Please sign up</div>
+                    <div className="lead mb-3">Please change your password</div>
                     <div className="form-floating mb-2">
                         <input
-                            name="email"
-                            type="email"
+                            name="currentPassword"
+                            type="password"
                             className="form-control has-error"
                             id="floatingInput"
                             placeholder="name@example.com"
                             onChange={onValueChange}
                             required />
-                        <label htmlFor="floatingInput">Email address</label>
+                        <label htmlFor="floatingInput">Current password</label>
                     </div>
                     { form.error
-                        ?. email
+                        ?. currentPassword
                         ?. length 
-                        ? <small className="text-danger">* { form.error.email }</small> 
+                        ? <small className="text-danger">* { form.error.currentPassword }</small> 
                         : null }
                     <div className="form-floating mt-2">
                         <input
@@ -66,10 +66,10 @@ const Register = () => {
                             type="password"
                             className="form-control"
                             id="floatingPassword"
-                            placeholder="Password"
+                            placeholder="New password"
                             onChange={onValueChange}
                             required />
-                        <label htmlFor="floatingPassword">Password</label>
+                        <label htmlFor="floatingPassword">New password</label>
                     </div>
                     { form.error
                         ?. password
@@ -102,12 +102,12 @@ const Register = () => {
                         disabled={form.loading}
                         className="w-100 btn btn-lg btn-primary mt-3"
                         onClick={onSubmit}
-                        type="button">Sign Up</button>
+                        type="button">Change password</button>
                     <hr className="my-4" />
-                    <small className="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                    <small className="text-muted">By clicking change password, you agree to the terms of use.</small>
                 </form>
             </div>
         </div>
     </>)
 }
-export default Register
+export default Edit

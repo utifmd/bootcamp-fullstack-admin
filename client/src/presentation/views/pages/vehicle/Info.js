@@ -1,65 +1,74 @@
 import { useState } from "react"
-import { NavBar } from "../../partials"
+import { NavBar } from "../../components"
 
+import InfoListVIew from "./InfoListView"
+import InfoTable from "./InfoTable"
+
+const vehicle = {
+    "id": 1,
+    "name": "Angkot B01",
+    "status": "null",
+    "route": "Kebayoran lama - Ciledug",
+    "passengerCapacity": 6,
+    "policeNumber": "B 1001 BA",
+    "vendor": "Toyota",
+    "imageUrl": "https://via.placeholder.com/150",
+    "userId": 2,
+    "createdAt": "2022-12-26 11:22:17.87+00",
+    "updatedAt": null,
+    "histories": [
+        {
+            "id": 1,
+            "fuel": 300000,
+            "income": 1300000,
+            "vehicleId": 1,
+            "userId": 2,
+            "createdAt": "2022-12-26 10:22:17.87+00",
+            "updatedAt": "2022-12-26 23:22:17.87+00"
+        }
+    ]
+}
 const Info = () => {
-    const [vehicle] = useState({
-        "id": 1,
-        "name": "Angkot B01",
-        "status": null,
-        "route": "Kebayoran lama - Ciledug",
-        "passengerCapacity": 6,
-        "policeNumber": "B 1001 BA",
-        "vendor": "Toyota",
-        "imageUrl": "https://via.placeholder.com/150",
-        "userId": 2,
-        "createdAt": "2022-12-26 11:22:17.87+00",
-        "updatedAt": null
-    })
+    const [form, setForm] = useState({ vehicle, error: {}, loading: false })
+
     return (<div className="bg-light">
         <NavBar />
         <div className="container">
-            <div class="row justify-content-evenly align-items-center py-5">
-                <div class="col-md-3">
-                    <img src={vehicle.imageUrl} width="100%" class="img-thumbnail" alt="user" />
+            <div className="lead mt-5">Vehicle information</div>
+            <div className="row justify-content-evenly align-items-center my-3">
+                <div className="col-md-3">
+                    <img src={form.vehicle.imageUrl} width="100%" className="img-thumbnail" alt="user" />
                 </div>
-                <div class="col-md-6">
-                    <ul class="list-group list-group-light">
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-5">
-                            <div>
-                                <div class="fw-bold">
-                                    Name
-                                </div>
-                                <div class="text-muted"><i className="fas fa-edit fs"></i> {vehicle.name} ({vehicle.vendor})</div>
-                            </div>
-                            {/* <span class="badge rounded-pill badge-success">Active</span> */}
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-5">
-                            <div>
-                                <div class="fw-bold">Route</div>
-                                <div class="text-muted"><i className="fas fa-road fs"></i> {vehicle.route}</div>
-                            </div>
-                            {/* <span class="badge rounded-pill badge-success">Active</span> */}
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-5">
-                            <div>
-                                <div class="fw-bold">Police number</div>
-                                <div class="text-muted"><i className="fas fa-key fs"></i> {vehicle.policeNumber}</div>
-                            </div>
-                            <span class="badge rounded-pill badge-success">Active {vehicle.createdAt}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-5">
-                            <div>
-                                <div class="fw-bold">Passenger Capacity</div>
-                                <div class="text-muted"><i className="fas fa-edit fs"></i> {vehicle.passengerCapacity}</div>
-                            </div>
-                            <span class={`badge rounded-pill ${vehicle.status ? "badge-info" : "badge-success"}`}>{vehicle.status ? "Onboarding" : "Standby"}</span>
-                        </li>
-                    </ul>
+                <div className="col-md-7">
+                    <InfoListVIew vehicle={form.vehicle} />
                     <div className="row pt-4 px-5">
-                        <div className="col"><a class="btn btn-outline-danger btn-rounded w-100" href="#" role="button" data-ripple-color="dark">Remove vehicle</a></div>
-                        <div className="col"><a class="btn btn-outline-dark btn-rounded w-100" href="#" role="button" data-ripple-color="dark">Change info</a></div>
+                        <div className="col"><a 
+                            className="btn btn-outline-danger btn-rounded w-100" 
+                            href="#top" 
+                            // role="button" 
+                            data-ripple-color="dark">Remove vehicle</a></div>
+                            
+                        <div className="col"><a 
+                            className="btn btn-outline-dark btn-rounded w-100" 
+                            href="#top" 
+                            // role="button" 
+                            data-ripple-color="dark">Change info</a></div>
+
+                        <div className="col">
+                            <button 
+                                disabled={form.vehicle.status === null} 
+                                onClick={() => setForm({vehicle: {...form.vehicle, status: null}}) } 
+                                className="btn btn-outline-warning btn-rounded w-100" 
+                                // role="button" 
+                                data-ripple-color="dark">Reset status
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div className="container my-5">
+                <span className="lead">Vehicle boarding records</span>
+                <InfoTable vehicle={form.vehicle}/>
             </div>
         </div>
     </div>)

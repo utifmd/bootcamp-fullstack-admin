@@ -1,53 +1,77 @@
-import { NavBar } from "../../partials"
+import { useState } from "react"
+import { NavBar, DriverItem } from "../../components"
 
-const Driver = () => <>
-    <NavBar />
-    <div class="container py-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top" alt="Skyscrapers" />
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Los Angeles Skyscrapers" />
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top" alt="Palm Springs Road" />
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This card has even longer content than the first to show
-                            that equal height action.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
+const users = [
+    {
+        id: 1,
+        name: "Brad pitt 1",
+        role: "driver",
+        identityNumber: 1001,
+        telp: 6285272869001,
+        email: "bradpitt1@gmail.com",
+        password: "121212",
+        imageUrl: "https://via.placeholder.com/150",
+        createdAt: "2022-12-21 11:22:17.87+00",
+        updatedAt: null
+    },
+    {
+        id: 2,
+        name: "Brad pitt 2",
+        role: "driver",
+        identityNumber: 1002,
+        telp: 6285272869002,
+        email: "bradpitt2@gmail.com",
+        password: "121212",
+        imageUrl: "https://via.placeholder.com/150",
+        createdAt: "2022-12-22 11:22:17.87+00",
+        updatedAt: null
+    },
+    {
+        id: 2,
+        name: "Brad pitt 3",
+        role: "driver",
+        identityNumber: 1003,
+        telp: 6285272869003,
+        email: "bradpitt3@gmail.com",
+        password: "121212",
+        imageUrl: "https://via.placeholder.com/150",
+        createdAt: "2022-12-23 11:22:17.87+00",
+        updatedAt: null
+    }
+]
+const backgroundStyle = {
+    minHeight: "100vh",
+    background: `linear-gradient(45deg, hsla(0, 0%, 95%, 0.5), hsla(0, 0%, 100%, 0.9) 100%), url('./assets/sustainable-lifestyle.svg')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover"
+}
+const Driver = () => {
+    const [form] = useState({ users, error: {}, loading: false })
+    const [regex, setRegex] = useState("")
+    const [sortToggle, setSortToggle] = useState(false)
+
+    const onSearchValueChange = (e) => {
+        e.preventDefault()
+        let value = e.target.value
+        setRegex(value)
+    }
+    return (<div className="bg-image" style={backgroundStyle}>
+        <NavBar 
+            sortToggle={sortToggle}
+            setSortToggle={setSortToggle}
+            onSearchValueChange={onSearchValueChange} />
+
+        <div className="container pt-4 g-2 mt-5">
+            <div class="row row-cols-1 row-cols-md-2">
+                { form.users
+                    .sort((a, b) => sortToggle 
+                        ? a.createdAt - b.createdAt 
+                        : b.createdAt - a.createdAt)
+                    .filter(({ name, email }) => name.includes(regex) || email.includes(regex))
+                    .map(user => <DriverItem user={user} />)
+                }
             </div>
         </div>
-    </div>
-</>
+    </div>)
+}
 export default Driver

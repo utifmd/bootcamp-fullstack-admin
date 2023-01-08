@@ -1,7 +1,9 @@
-const NavBar = () => <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-white">
-        <div className="container-fluid justify-content-between">
+import { useState } from "react"
 
+const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
+
+    return (<nav className="navbar navbar-expand-lg navbar-light bg-white">
+        <div className="container-fluid justify-content-between">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav flex-row d-none d-md-flex">
                     <li className="nav-item me-3 me-lg-1 active">
@@ -20,7 +22,13 @@ const NavBar = () => <>
                     </li>
                 </ul>
             </div>
-            <div className="d-flex mx-2">
+            { setSortToggle ? <i 
+                className={`fa-solid ${sortToggle 
+                    ? "fa-arrow-down-wide-short" 
+                    : "fa-arrow-up-wide-short"}`} 
+                onClick={() => setSortToggle(!sortToggle)} />
+            : null}
+            {onSearchValueChange ? <div className="d-flex mx-2">
                 <form className="d-flex input-group w-auto">
                     <span className="input-group-text border-0" id="search-addon"><i className="fas fa-search"></i></span>
                     <input
@@ -29,10 +37,11 @@ const NavBar = () => <>
                         placeholder="Search"
                         aria-label="Search"
                         aria-describedby="search-addon"
+                        onChange={onSearchValueChange}
                     />
                 </form>
-            </div>
-            <div className="d-flex align-items-center">
+            </div> : null}
+            <div className="d-flex align-items-center me-2">
                 <div className="dropdown">
                     <ul
                         className="dropdown-menu dropdown-menu-end"
@@ -84,7 +93,7 @@ const NavBar = () => <>
                 </div>
             </div>
         </div>
-    </nav>
-</>
+    </nav>)
+}
 
 export default NavBar

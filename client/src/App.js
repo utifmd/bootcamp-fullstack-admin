@@ -1,11 +1,10 @@
-import { Home, Login, Register } from "./presentation/views/pages"
+import { Home } from "./presentation/views/pages"
 
 function App() {
   return (
     <div>
-      <Register />
+      <Home />
     </div>
   );
 }
-
 export default App;
