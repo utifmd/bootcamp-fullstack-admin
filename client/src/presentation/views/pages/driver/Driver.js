@@ -51,11 +51,11 @@ const Driver = () => {
         setRegex(value)
     }
     return (<div className="bg-image" style={backgroundStyle}>
-        <NavBar 
+        {/* <NavBar 
             active={'drivers'}
             sortToggle={sortToggle}
             setSortToggle={setSortToggle}
-            onSearchValueChange={onSearchValueChange} />
+            onSearchValueChange={onSearchValueChange} /> */}
 
         <div className="container pt-4 g-2 mt-5">
             <div class="row row-cols-1 row-cols-md-2">

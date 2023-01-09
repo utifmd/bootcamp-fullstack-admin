@@ -29,7 +29,7 @@ const Info = () => {
         ]
     })
     return (<div className="bg-light">
-        <NavBar active={'drivers'} />
+        {/* <NavBar active={'drivers'} /> */}
         <div className="container">
             <div className="lead mt-5">Driver information</div>
             <div class="row justify-content-evenly align-items-center my-3">

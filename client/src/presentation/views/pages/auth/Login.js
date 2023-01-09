@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { redirect } from "react-router-dom"
-import { Header } from "../../components"
+
 const fields = {
     email: "",
     password: ""
@@ -34,10 +34,9 @@ const Register = () => {
         }
         console.log("submit")
         console.log(form)
-        redirect("/dashboard")
+        redirect(`/feeds`)
     }
     return (<>
-        <Header />
         <div className="my-4" />
         <div className="container">
             <div className="col-md-10 mx-auto col-lg-5">
@@ -85,7 +84,7 @@ const Register = () => {
                         disabled={form.loading}
                         className="w-100 btn btn-lg btn-primary mt-3"
                         onClick={onSubmit}
-                        type="button">Sign Up</button>
+                        type="button">Sign In</button>
                     <hr className="my-4" />
                     <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
                 </form>

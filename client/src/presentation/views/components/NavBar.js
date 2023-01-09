@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom"
 const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggle }) => <>
     <nav className="navbar navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid justify-content-between">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        <a className={`nav-link ${active === 'dashboard' && "active"}`} href="/dashboard"><i className="fa fa-road fa-xl mx-2"></i> Dashboard</a>
+                        <Link className="nav-link" to="/feeds"><i className="fa fa-road fa-xl mx-2"></i> Feeds</Link>
                     </li>
                     <li className="nav-item">
-                        <a className={`nav-link ${active === 'vehicles' && "active"}`} href="/vehicles">Vehicles</a>
+                        <Link className="nav-link" to="/vehicle/list">Vehicles</Link>
                     </li>
                     <li className="nav-item">
-                        <a className={`nav-link ${active === 'drivers' && "active"}`} href="/drivers">Drivers</a>
+                        <Link className="nav-link" to="/driver/list">Drivers</Link>
                     </li>
                 </ul>
             </div>
@@ -35,9 +36,9 @@ const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggl
             </div> : null}
             { account ? <div className="d-flex align-items-center me-2">
                 <div className="dropdown">
-                    <a
+                    <Link
                         className="dropdown-toggle d-flex align-items-center hidden-arrow"
-                        href="#top"
+                        to="#top"
                         id="navbarDropdownMenuAvatar"
                         role="button"
                         data-mdb-toggle="dropdown"
@@ -51,19 +52,19 @@ const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggl
                             loading="lazy"
                         />
                         <strong className="d-none d-sm-block ms-1 text-dark">{account.name}</strong>
-                    </a>
+                    </Link>
                     <ul
                         className="dropdown-menu dropdown-menu-end"
                         aria-labelledby="navbarDropdownMenuAvatar"
                     >
                         <li>
-                            <a className="dropdown-item" href="/drivers/edit">Change profile info</a>
+                            <Link className="dropdown-item" to="/drivers/edit">Change profile info</Link>
                         </li>
                         <li>
-                            <a className="dropdown-item" href="/auth/edit">Change password</a>
+                            <Link className="dropdown-item" to="/auth/edit">Change password</Link>
                         </li>
                         <li>
-                            <a className="dropdown-item" href="#top">Logout</a>
+                            <Link className="dropdown-item" to="#top">Logout</Link>
                         </li>
                     </ul>
                 </div>
@@ -74,11 +75,11 @@ const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggl
         <h1 class="">Dashboard</h1>
         <nav class="d-flex">
             <h6 class="mb-0">
-                <a href="" class="text-reset">Home</a>
+                <Link to="" class="text-reset">Home</Link>
                 <span>/</span>
-                <a href="" class="text-reset">Analytics</a>
+                <Link to="" class="text-reset">Analytics</Link>
                 <span>/</span>
-                <a href="" class="text-reset"><u>Dashboard</u></a>
+                <Link to="" class="text-reset"><u>Dashboard</u></Link>
             </h6>
         </nav>
     </div> */}

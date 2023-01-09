@@ -23,7 +23,7 @@ const Edit = () => {
         console.log(name, value)
     }
     return (<>
-        <NavBar active={'vehicles'} />
+        {/* <NavBar active={'vehicles'} /> */}
         <div className="container">
             <form className="p-4 p-md-5">
                 <div className="lead mb-3">Please change vehicle info</div>

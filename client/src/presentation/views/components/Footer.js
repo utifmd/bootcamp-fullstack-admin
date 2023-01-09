@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom"
 const Footer = () => <>
     <footer class="text-center">
         <div class="container p-4 pb-0">
             <section class="">
                 <p class="d-flex justify-content-center align-items-center">
                     <span class="me-3">Have an account?</span>
-                    <a href="/auth/login" type="button" class="btn btn-outline-dark btn-rounded">
+                    <Link to="/auth/login" type="button" class="btn btn-outline-dark btn-rounded">
                         Sign in!
-                    </a>
+                    </Link>
                 </p>
             </section>
         </div>

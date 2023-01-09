@@ -1,17 +1,24 @@
-import { Login, Register, AuthEdit } from "../views/pages"
+import { Route, Outlet } from "react-router-dom"
+import { Login, Register, AuthEdit, Error, DashboardGuest } from "../views/pages"
 
-const router = [
-    {
-        path: "auth/login/",
-        element: <Login />
-    },
-    {
-        path: "auth/register/",
-        element: <Register />
-    },
-    {
-        path: "auth/edit/",
-        element: <AuthEdit />
-    }
-]
-export default router
+const Router = () => <Route
+    path="/auth"
+    element={<DashboardGuest />}>
+    <Route
+        index
+        element={<Error />} />
+
+    <Route
+        path="login"
+        element={<Login />} />
+
+    <Route
+        path="register"
+        element={<Register />} />
+
+    <Route
+        path="edit"
+        element={<AuthEdit />} />
+</Route>
+
+export default Router

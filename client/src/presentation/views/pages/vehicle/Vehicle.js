@@ -33,11 +33,11 @@ const Vehicles = () => {
         setRegex(value)
     }
     return (<div className="bg-image" style={backgroundStyle}>
-        <NavBar
+        {/* <NavBar
             active={'vehicles'}
             sortToggle={sortToggle}
             setSortToggle={setSortToggle}
-            onSearchValueChange={onSearchValueChange} />
+            onSearchValueChange={onSearchValueChange} /> */}
 
         <div className="container py-5">
             <div className="p-5 mb-4 bg-light rounded-3">
