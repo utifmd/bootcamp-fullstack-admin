@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { NavBar, DriverItem } from "../../components"
+import { backgroundStyle } from "../../helper"
 
 const users = [
     {
@@ -39,12 +40,6 @@ const users = [
         updatedAt: null
     }
 ]
-const backgroundStyle = {
-    minHeight: "100vh",
-    background: `linear-gradient(45deg, hsla(0, 0%, 95%, 0.5), hsla(0, 0%, 100%, 0.9) 100%), url('./assets/sustainable-lifestyle.svg')`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover"
-}
 const Driver = () => {
     const [form] = useState({ users, error: {}, loading: false })
     const [regex, setRegex] = useState("")
@@ -57,6 +52,7 @@ const Driver = () => {
     }
     return (<div className="bg-image" style={backgroundStyle}>
         <NavBar 
+            active={'drivers'}
             sortToggle={sortToggle}
             setSortToggle={setSortToggle}
             onSearchValueChange={onSearchValueChange} />

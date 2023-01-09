@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { redirect } from "react-router-dom"
 import { Header } from "../../components"
 const fields = {
     email: "",
@@ -33,6 +34,7 @@ const Register = () => {
         }
         console.log("submit")
         console.log(form)
+        redirect("/dashboard")
     }
     return (<>
         <Header />

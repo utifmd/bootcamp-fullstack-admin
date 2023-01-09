@@ -4,9 +4,9 @@ const Footer = () => <>
             <section class="">
                 <p class="d-flex justify-content-center align-items-center">
                     <span class="me-3">Have an account?</span>
-                    <button type="button" class="btn btn-outline-dark btn-rounded">
+                    <a href="/auth/login" type="button" class="btn btn-outline-dark btn-rounded">
                         Sign in!
-                    </button>
+                    </a>
                 </p>
             </section>
         </div>

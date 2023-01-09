@@ -38,7 +38,7 @@ const Edit = () => {
         console.log(form)
     }
     return (<>
-        <Header />
+        <Header active={'auth'} />
         <div className="my-4" />
         <div className="container">
             <div className="col-md-10 mx-auto col-lg-5">

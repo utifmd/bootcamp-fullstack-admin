@@ -32,7 +32,7 @@ const Info = () => {
     const [form, setForm] = useState({ vehicle, error: {}, loading: false })
 
     return (<div className="bg-light">
-        <NavBar />
+        <NavBar active={'vehicles'} />
         <div className="container">
             <div className="lead mt-5">Vehicle information</div>
             <div className="row justify-content-evenly align-items-center my-3">

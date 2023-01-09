@@ -37,6 +37,13 @@ const asCapitalize = (str) => str
     || str
 const asIdr = (num) => "IDR ".concat(num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")) || num
 
+const backgroundStyle = {
+    minHeight: "100vh",
+    background: `linear-gradient(45deg, hsla(0, 0%, 95%, 0.5), hsla(0, 0%, 100%, 0.9) 100%), url('./assets/sustainable-lifestyle.svg')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover"
+}
+
 export {
-    asPhoneFormat, asDateFormat, asDateTimeFormat, asCapitalize, asIdr
+    asPhoneFormat, asDateFormat, asDateTimeFormat, asCapitalize, asIdr, backgroundStyle
 }

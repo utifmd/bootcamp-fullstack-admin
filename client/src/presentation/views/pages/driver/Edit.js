@@ -22,7 +22,7 @@ const Edit = () => {
         console.log(name, value)
     }
     return(<>
-        <NavBar />
+        <NavBar active={'drivers'} />
         <div className="container">
             <form className="p-4 p-md-5">
                 <div className="lead mb-3">Please complete your info</div>
@@ -74,7 +74,7 @@ const Edit = () => {
                     <label class="form-label" for="imageFile">Pas foto</label>
                     <input name="imageFile" type="file" class="form-control form-control-lg" id="imageFile" />
                 </div>
-                <button className="btn btn-lg btn-primary mt-3" type="submit">Update</button>
+                <button className="btn btn-lg btn-primary mt-3" type="submit">Submit</button>
                 <hr className="my-4" />
                 <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
             </form>

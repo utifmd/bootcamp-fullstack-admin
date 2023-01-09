@@ -34,6 +34,7 @@ const Vehicles = () => {
     }
     return (<div className="bg-image" style={backgroundStyle}>
         <NavBar
+            active={'vehicles'}
             sortToggle={sortToggle}
             setSortToggle={setSortToggle}
             onSearchValueChange={onSearchValueChange} />
