@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { asDateTimeFormat, asCapitalize } from "../../helper"
+
 const histories = [
     {
         id: 1,

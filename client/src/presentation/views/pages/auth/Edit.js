@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Header } from "../../components"
 const fields = {
     currentPassword: "",
     password: "",
@@ -38,7 +37,6 @@ const Edit = () => {
         console.log(form)
     }
     return (<>
-        <Header active={'auth'} />
         <div className="my-4" />
         <div className="container">
             <div className="col-md-10 mx-auto col-lg-5">

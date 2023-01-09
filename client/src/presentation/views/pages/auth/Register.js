@@ -96,11 +96,13 @@ const Register = () => {
                         ?. length 
                         ? <div class="alert alert-danger mt-2" role="alert"> { form.error.message } </div> 
                         : null }
+                        
                     <button
-                        disabled={form.loading}
                         className="w-100 btn btn-lg btn-primary mt-3"
+                        disabled={form.loading}
                         onClick={onSubmit}
                         type="button">Sign Up</button>
+                        
                     <hr className="my-4" />
                     <small className="text-muted">By clicking Sign up, you agree to the terms of use.</small>
                 </form>

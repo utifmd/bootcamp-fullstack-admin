@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom"
-const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggle }) => <>
-    <nav className="navbar navbar-expand-lg navbar-light bg-white">
+import { useAuth } from "../../state"
+
+const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
+    const { token, onLogout } = useAuth()
+
+    return (<nav className="navbar navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid justify-content-between">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -34,7 +38,7 @@ const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggl
                     />
                 </form>
             </div> : null}
-            { account ? <div className="d-flex align-items-center me-2">
+            {token?.name ? <div className="d-flex align-items-center me-2">
                 <div className="dropdown">
                     <Link
                         className="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -45,44 +49,32 @@ const NavBar = ({ active, account, onSearchValueChange, sortToggle, setSortToggl
                         aria-expanded="false"
                     >
                         <img
-                            src={account.imageUrl}
+                            src={token.imageUrl}
                             className="rounded-circle"
                             height="25"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
                         />
-                        <strong className="d-none d-sm-block ms-1 text-dark">{account.name}</strong>
+                        <strong className="d-none d-sm-block ms-1 text-dark">{token.name}</strong>
                     </Link>
                     <ul
                         className="dropdown-menu dropdown-menu-end"
                         aria-labelledby="navbarDropdownMenuAvatar"
                     >
                         <li>
-                            <Link className="dropdown-item" to="/drivers/edit">Change profile info</Link>
+                            <Link className="dropdown-item" to="/driver/edit">Change profile info</Link>
                         </li>
                         <li>
                             <Link className="dropdown-item" to="/auth/edit">Change password</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#top">Logout</Link>
+                            <div onClick={onLogout} className="dropdown-item">Logout</div>
                         </li>
                     </ul>
                 </div>
-            </div> : null }
+            </div> : null}
         </div>
-    </nav>
-    {/* <div class="p-5 bg-light mb-4">
-        <h1 class="">Dashboard</h1>
-        <nav class="d-flex">
-            <h6 class="mb-0">
-                <Link to="" class="text-reset">Home</Link>
-                <span>/</span>
-                <Link to="" class="text-reset">Analytics</Link>
-                <span>/</span>
-                <Link to="" class="text-reset"><u>Dashboard</u></Link>
-            </h6>
-        </nav>
-    </div> */}
-</>
+    </nav>)
+}
 
 export default NavBar

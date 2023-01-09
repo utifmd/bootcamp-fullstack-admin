@@ -1,4 +1,5 @@
-import { Route, Outlet } from "react-router-dom"
+import { Route } from "react-router-dom"
+import { AuthScope } from "../state"
 import { Login, Register, AuthEdit, Error, DashboardGuest } from "../views/pages"
 
 const Router = () => <Route
@@ -18,7 +19,7 @@ const Router = () => <Route
 
     <Route
         path="edit"
-        element={<AuthEdit />} />
+        element={<AuthScope><AuthEdit/></AuthScope>} />
 </Route>
 
 export default Router

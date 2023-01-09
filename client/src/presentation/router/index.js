@@ -1,7 +1,6 @@
 import { Route, Outlet, 
     createBrowserRouter, 
-    createRoutesFromElements
-} from "react-router-dom"
+    createRoutesFromElements} from "react-router-dom"
 import authRoute from "./authRouter"
 import driverRouter from "./driverRouter"
 import vehicleRouter from "./vehicleRouter"

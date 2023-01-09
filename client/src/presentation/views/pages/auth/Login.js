@@ -1,12 +1,15 @@
 import { useState } from "react"
-import { redirect } from "react-router-dom"
-
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../../state"
 const fields = {
     email: "",
     password: ""
 }
 const Register = () => {
     const [form, setForm] = useState({ fields, error: {}, loading: false })
+    const navigate = useNavigate()
+    const { onLogin } = useAuth()
+
     const onValueChange = (e) => {
         let name = e.target.name
         let value = e.target.value
@@ -25,16 +28,23 @@ const Register = () => {
         setForm({ error, fields: form.fields, loading: form.loading })
         return !Object.entries(error).length
     }
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
+        const { email, password } = form.fields
         if (!isFormValiated()) {
             console.log("failed")
             console.log(form)
             return
         }
+        setForm({ loading: true })
         console.log("submit")
-        console.log(form)
-        redirect(`/feeds`)
+        try {
+            await onLogin(email, password)
+            navigate("/feeds")
+        } catch (error) {
+            console.log("invalid user")
+            setForm({error})
+        }
     }
     return (<>
         <div className="my-4" />
@@ -46,6 +56,7 @@ const Register = () => {
                         <input
                             name="email"
                             type="email"
+                            disabled={form.loading}
                             className="form-control has-error"
                             id="floatingInput"
                             placeholder="name@example.com"
@@ -62,6 +73,7 @@ const Register = () => {
                         <input
                             name="password"
                             type="password"
+                            disabled={form.loading}
                             className="form-control"
                             id="floatingPassword"
                             placeholder="Password"
@@ -80,11 +92,13 @@ const Register = () => {
                         ?.length
                         ? <div class="alert alert-danger mt-2" role="alert"> {form.error.message} </div>
                         : null}
+                        
                     <button
                         disabled={form.loading}
                         className="w-100 btn btn-lg btn-primary mt-3"
                         onClick={onSubmit}
-                        type="button">Sign In</button>
+                        type="submit">Sign In</button>
+
                     <hr className="my-4" />
                     <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
                 </form>

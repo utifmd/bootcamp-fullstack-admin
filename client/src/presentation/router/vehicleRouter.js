@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Vehicle, VehicleEdit, VehicleInfo, Error } from "../views/pages"
+import { AuthScope } from "../state"
 
 const router = () => 
 <Route 
@@ -12,15 +13,15 @@ const router = () =>
 
     <Route 
         path="list"
-        element={<Vehicle/>} />
+        element={<AuthScope><Vehicle/></AuthScope>} />
 
     <Route 
         path="info"
-        element={<VehicleInfo/>} />
+        element={<AuthScope><VehicleInfo/></AuthScope>} />
 
     <Route 
         path="edit" 
-        element={<VehicleEdit/>} />
+        element={<AuthScope><VehicleEdit/></AuthScope>} />
 </Route>
 
 export default router
