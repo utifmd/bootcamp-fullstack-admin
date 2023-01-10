@@ -1,4 +1,4 @@
-const { Vehicle, VehicleRequest, VehicleResponse, Message } = require("../models")
+const { Vehicle, History, VehicleRequest, VehicleResponse, Message } = require("../models")
 class Controller {
     static async readAll(req, resp) {
         try {
@@ -13,7 +13,7 @@ class Controller {
         try {
             const { id } = req.params
             console.log(`"vehicle read" ${id}`)
-            const data = await Vehicle.findByPk(id)
+            const data = await Vehicle.findByPk(id, {include: History})
             const response = new VehicleResponse(data)
             resp.send(response)
         } catch (error) {

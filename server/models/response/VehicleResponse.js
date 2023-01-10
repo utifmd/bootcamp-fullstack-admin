@@ -1,5 +1,7 @@
+const HistoryResponse = require("./HistoryResponse")
+
 class VehicleResponse {
-    constructor({id, name, status, route, passengerCapacity, policeNumber, vendor, imageUrl, userId, createdAt, updatedAt}) {
+    constructor({id, name, status, route, passengerCapacity, policeNumber, vendor, imageUrl, userId, Histories, createdAt, updatedAt}) {
         this.id = id
         this.name = name
         this.status = status
@@ -9,6 +11,7 @@ class VehicleResponse {
         this.vendor = vendor
         this.imageUrl = imageUrl
         this.userId = userId
+        this.histories = Histories.map(history => new HistoryResponse(history))
         this.createdAt = createdAt
         this.updatedAt = updatedAt
     }

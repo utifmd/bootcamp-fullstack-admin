@@ -1,11 +1,14 @@
+const HistoryResponse = require("./HistoryResponse")
+
 class UserResponse {
-    constructor({id, name, role, identityNumber, telp, imageUrl, createdAt, updatedAt}){
+    constructor({id, name, role, identityNumber, telp, imageUrl, Histories, createdAt, updatedAt}){
         this.id = id
         this.name = name
         this.role = role
         this.identityNumber = identityNumber
         this.telp = telp
         this.imageUrl = imageUrl
+        this.histories = Histories.map(history => new HistoryResponse(history))
         this.createdAt = createdAt
         this.updatedAt = updatedAt
     }

@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      History.belongsTo(models.Vehicle)
+      History.belongsTo(models.User)
     }
   }
   History.init({
@@ -24,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     income: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       validate: {
         isNumeric: {
           msg: "Must be an integer number"

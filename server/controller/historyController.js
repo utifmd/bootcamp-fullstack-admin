@@ -1,12 +1,39 @@
+const { History, Vehicle, User, HistoryRequest, HistoryResponse, Message } = require("../models")
 class Controller {
-    static readAll(req, resp) {
-        resp.json("history readAll")
+    static async readAll(req, resp) {
+        try {
+            const data = await History.findAll({include: [Vehicle, User]})
+            const response = HistoryResponse.asList(data)
+            resp.send(response)
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
-    static create(req, resp) {
-        resp.json("history create")
+    static async create(req, resp) {
+        try {
+            console.log("history create")
+            const request = new HistoryRequest(req.body)
+            const data = await History.create(request)
+            const response = new HistoryResponse(data)
+            resp.send(response)
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
-    static update(req, resp) {
-        resp.json("history update")
+    static async update(req, resp) {
+        try {
+            const { id } = req.params
+            const request = new HistoryRequest(req.body)
+            console.log(`history update ${req.params.id}`)
+            const [state] = await History.update(request, { where: { id }})
+            let text = state === 1 
+                ? `History with id ${id} has been updated` 
+                : { message: `Couldn\'t update history with id ${id}` }
+            resp.send(new Message(text))
+            
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
 }
 module.exports = Controller

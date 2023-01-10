@@ -1,4 +1,4 @@
-const { User, UserRequest, UserResponse, Message } = require("../models")
+const { User, History, UserRequest, UserResponse, Message } = require("../models")
 class Controller {
     static async readAll(req, resp) {
         try {
@@ -13,8 +13,10 @@ class Controller {
         try {
             const { id } = req.params
             console.log(`"user read" ${id}`)
-            const data = await User.findByPk(id)
-            const response = new UserResponse(data)
+            const data = await User.findByPk(id, {include: History})
+            const response = data
+                ? new UserResponse(data)
+                : new Message({ message: `User with id ${id} does\'nt exist` })
             resp.send(response)
         } catch (error) {
             resp.send(new Message(error))
@@ -26,7 +28,7 @@ class Controller {
             resp.json(`"user delete" ${id}`)
             const state = await User.destroy({ where: { id } })
             let text = state === 1 
-                ? `Category with id ${id} has been deleted` 
+                ? `User with id ${id} has been deleted` 
                 : { message: `Couldn\'t delete category with id ${id}` }
             resp.send(new Message(text))
         } catch (error) {
