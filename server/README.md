@@ -79,6 +79,88 @@ npx sequelize-cli model:generate --name Vehicle --attributes "name:string, statu
 ```code
 npx sequelize-cli model:generate --name User --attributes "name:string, role:string, identityNumber:integer, telp:string, email:string, password:string, imageUrl:stri"
 ```
+
+## Related Tables
+
+### User
+```json
+{
+    "id": 1,
+    "name": "Brad pitt",
+    "role": "driver",
+    "identityNumber": 1002,
+    "telp": "6285272869009",
+    "imageUrl": "https://via.placeholder.com/150",
+    "histories": [
+        {
+            "id": 1,
+            "fuel": 300000,
+            "income": 400000,
+            "createdAt": "2023-01-10T09:15:24.980Z",
+            "updatedAt": "2023-01-10T09:17:37.012Z"
+        }
+    ],
+    "createdAt": "2023-01-10T08:41:10.273Z",
+    "updatedAt": "2023-01-10T08:56:07.468Z"
+}
+```
+### Vehicle
+```json
+ {
+    "id": 2,
+    "name": "Angkot B02",
+    "status": "standby",
+    "route": "Jonggol - Puri indah",
+    "passengerCapacity": 5,
+    "policeNumber": "B 1002 BA",
+    "vendor": "Datsun",
+    "imageUrl": "https://via.placeholder.com/150",
+    "histories": [
+        {
+            "id": 1,
+            "fuel": 300000,
+            "income": 400000,
+            "createdAt": "2023-01-10T09:15:24.980Z",
+            "updatedAt": "2023-01-10T09:17:37.012Z"
+        }
+    ],
+    "createdAt": "2023-01-10T07:31:37.378Z",
+    "updatedAt": "2023-01-10T08:09:30.663Z"
+}
+```
+### History
+```json
+[
+    {
+        "id": 1,
+        "fuel": 300000,
+        "income": 400000,
+        "vehicle": {
+            "id": 2,
+            "name": "Angkot B02",
+            "status": "standby",
+            "route": "Jonggol - Puri indah",
+            "passengerCapacity": 5,
+            "policeNumber": "B 1002 BA",
+            "vendor": "Datsun",
+            "imageUrl": "https://via.placeholder.com/150",
+            "createdAt": "2023-01-10T07:31:37.378Z",
+            "updatedAt": "2023-01-10T08:09:30.663Z"
+        },
+        "user": {
+            "id": 1,
+            "name": "Brad pitt",
+            "role": "driver",
+            "identityNumber": 1002,
+            "telp": "6285272869009",
+            "imageUrl": "https://via.placeholder.com/150"
+        },
+        "createdAt": "2023-01-10T09:15:24.980Z",
+        "updatedAt": "2023-01-10T09:17:37.012Z"
+    }
+]
+```
+
 ## Refferencies
 ### 
 ```url

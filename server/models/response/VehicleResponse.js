@@ -11,7 +11,7 @@ class VehicleResponse {
         this.vendor = vendor
         this.imageUrl = imageUrl
         this.userId = userId
-        this.histories = Histories.map(history => new HistoryResponse(history))
+        if (Histories) this.histories = Histories.map(history => new HistoryResponse(history))
         this.createdAt = createdAt
         this.updatedAt = updatedAt
     }

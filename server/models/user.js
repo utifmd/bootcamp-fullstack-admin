@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { encrypt, isMatch } = require("../helper")
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -52,11 +53,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: "Email must not be empty."
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: "Password must not be empty."
+      }
     },
     imageUrl: {
       type: DataTypes.STRING,
@@ -67,7 +74,12 @@ module.exports = (sequelize, DataTypes) => {
     } //, HistoryId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'User'
+  });
+  User.addHook('beforeValidate', (user, options) => {
+    user.password = encrypt(user.password)
+    user.role = user.role || "driver"
+    user.imageUrl = user.imageUrl || "https://via.placeholder.com/150" 
   });
   return User;
 };

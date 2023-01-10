@@ -4,9 +4,9 @@ class Controller {
         try {
             const data = await User.findAll()
             const response = UserResponse.asList(data)
-            resp.send(response)
+            resp.status(200).send(response)
         } catch (error) {
-            resp.send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async read(req, resp) {
@@ -17,9 +17,11 @@ class Controller {
             const response = data
                 ? new UserResponse(data)
                 : new Message({ message: `User with id ${id} does\'nt exist` })
-            resp.send(response)
+            resp
+                .status(data? 200: 404)
+                .send(response)
         } catch (error) {
-            resp.send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async delete(req, resp) {
@@ -30,9 +32,11 @@ class Controller {
             let text = state === 1 
                 ? `User with id ${id} has been deleted` 
                 : { message: `Couldn\'t delete category with id ${id}` }
-            resp.send(new Message(text))
+            resp
+                .status(state === 1? 200: 404)
+                .send(new Message(text))
         } catch (error) {
-            resp.send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async update(req, resp) {
@@ -40,14 +44,16 @@ class Controller {
             const { id } = req.params
             const request = new UserRequest(req.body)
             console.log(`user update ${req.params.id}`)
-            const [state] = await User.update(request, { where: { id }})
+            const [state] = await User.update(request, { where: { id } })
             let text = state === 1 
                 ? `User with id ${id} has been updated` 
                 : { message: `Couldn\'t update user with id ${id}` }
-            resp.send(new Message(text))
+            resp
+                .status(state === 1? 200: 404)
+                .send(new Message(text))
             
         } catch (error) {
-            resp.send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
 }

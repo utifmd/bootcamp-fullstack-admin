@@ -8,7 +8,7 @@ class UserResponse {
         this.identityNumber = identityNumber
         this.telp = telp
         this.imageUrl = imageUrl
-        this.histories = Histories.map(history => new HistoryResponse(history))
+        if (Histories) this.histories = Histories.map(history => new HistoryResponse(history))
         this.createdAt = createdAt
         this.updatedAt = updatedAt
     }

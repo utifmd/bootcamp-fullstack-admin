@@ -1,9 +1,11 @@
 const router = require("express").Router()
 const { historyController } = require("../controller")
+const { authentication } = require("../middleware")
 
 router.get("/histories", historyController.readAll)
-router.post("/histories/add", historyController.create)
-router.put("/histories/update/:id", historyController.update)
+router.post("/histories/add", authentication, historyController.create)
+router.put("/histories/update/:id", authentication, historyController.update)
+
 // router.get("histories/:id", historyController.read)
 // router.delete("histories/remove/:id", historyController.delete)
 

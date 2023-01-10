@@ -6,7 +6,7 @@ class HistoryResponse {
         this.vehicleId = vehicleId
         this.userId = userId
         this.vehicle = Vehicle
-        this.user = this.asUser(User)
+        if (User) this.user = this.asUser(User)
         this.createdAt = createdAt
         this.updatedAt = updatedAt
     }
