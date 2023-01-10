@@ -5,7 +5,7 @@ import { AuthScope } from "../state"
 const router = () => 
 <Route 
     path="/vehicle" 
-    element={<DashboardUser/>}>
+    element={<AuthScope><DashboardUser/></AuthScope>}>
         
     <Route
         index
@@ -13,15 +13,15 @@ const router = () =>
 
     <Route 
         path="list"
-        element={<AuthScope><Vehicle/></AuthScope>} />
+        element={<Vehicle/>} />
 
     <Route 
         path="info"
-        element={<AuthScope><VehicleInfo/></AuthScope>} />
+        element={<VehicleInfo/>} />
 
     <Route 
         path="edit" 
-        element={<AuthScope><VehicleEdit/></AuthScope>} />
+        element={<VehicleEdit/>} />
 </Route>
 
 export default router

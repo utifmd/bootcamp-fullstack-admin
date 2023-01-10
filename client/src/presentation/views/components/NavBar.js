@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 import { useAuth } from "../../state"
 
 const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
-    const { token, onLogout } = useAuth()
-
+    const { auth, onLogout } = useAuth()
+    console.log(auth)
     return (<nav className="navbar navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid justify-content-between">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,7 +38,7 @@ const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
                     />
                 </form>
             </div> : null}
-            {token?.name ? <div className="d-flex align-items-center me-2">
+            {auth?.token?.name ? <div className="d-flex align-items-center me-2">
                 <div className="dropdown">
                     <Link
                         className="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -49,13 +49,13 @@ const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
                         aria-expanded="false"
                     >
                         <img
-                            src={token.imageUrl}
+                            src={auth?.token?.imageUrl}
                             className="rounded-circle"
                             height="25"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
                         />
-                        <strong className="d-none d-sm-block ms-1 text-dark">{token.name}</strong>
+                        <strong className="d-none d-sm-block ms-1 text-dark">{auth?.token?.name}</strong>
                     </Link>
                     <ul
                         className="dropdown-menu dropdown-menu-end"

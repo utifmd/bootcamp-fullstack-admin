@@ -50,5 +50,8 @@
             "createdAt": "2022-12-26 11:22:17.87+00",
             "updatedAt": null
         }
-    ]
+    ],
+    "signin": {
+        "accessToken": "token egnerated here"
+    }
 }

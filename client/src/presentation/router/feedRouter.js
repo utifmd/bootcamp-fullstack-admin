@@ -1,14 +1,13 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Feed } from "../views/pages"
-import { AuthScope } from "../state"
 
 const Router = () => <Route
-    path="/feeds"
-    element={<DashboardUser />}>
+    path="feeds"
+    element={<DashboardUser/>}>
 
     <Route
         index
-        element={<AuthScope><Feed/></AuthScope>}/>
+        element={<Feed/>}/>
 </Route>
 
 export default Router

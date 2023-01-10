@@ -2,9 +2,9 @@ import { createContext, useContext } from "react"
 import AuthProvider from "./AuthProvider"
 import AuthScope from "./AuthScope"
 
-const AuthContext = createContext(null)
+const AuthContext = createContext()
 const useAuth = () => useContext(AuthContext)
 
 export {
-    AuthProvider, AuthScope, AuthContext, useAuth
+    AuthContext, useAuth, AuthProvider, AuthScope 
 }

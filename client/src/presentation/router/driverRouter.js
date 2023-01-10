@@ -5,7 +5,7 @@ import { AuthScope } from "../state"
 const router = () => 
 <Route 
     path="/driver" 
-    element={<DashboardUser/>}>
+    element={<AuthScope><DashboardUser/></AuthScope>}>
         
     <Route
         index
@@ -13,15 +13,15 @@ const router = () =>
 
     <Route 
         path="list"
-        element={<AuthScope><Driver/></AuthScope>} />
+        element={<Driver/>} />
 
     <Route 
         path="info"
-        element={<AuthScope><DriverInfo/></AuthScope>} />
+        element={<DriverInfo/>} />
 
     <Route 
         path="edit" 
-        element={<AuthScope><DriverEdit/></AuthScope>} />
+        element={<DriverEdit/>} />
 </Route>
 
 export default router

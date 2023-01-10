@@ -1,49 +1,46 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../state"
-const fields = {
-    email: "",
-    password: ""
-}
+
 const Register = () => {
-    const [form, setForm] = useState({ fields, error: {}, loading: false })
-    const navigate = useNavigate()
-    const { onLogin } = useAuth()
+    const [fields, setFields] = useState({
+        email: "",
+        password: "",
+        error: {}
+    })
+    const { auth, onLogin } = useAuth()
 
     const onValueChange = (e) => {
         let name = e.target.name
         let value = e.target.value
 
         fields[name] = value
-        form.fields = { ...form.fields, ...fields }
+        fields = { ...fields, ...fields }
 
-        setForm(form)
+        setFields(fields)
     }
     const isFormValiated = () => {
-        const { email, password } = form.fields
-        let error = {}
-        if (!email) error.email = "Email could not be empty."
-        if (!password) error.password = "Password could not be empty."
+        const { email, password } = fields
+        let formError = {}
+        if (!email) formError.email = "Email could not be empty."
+        if (!password) formError.password = "Password could not be empty."
 
-        setForm({ error, fields: form.fields, loading: form.loading })
-        return !Object.entries(error).length
+        setFields({ error: formError, fields: fields })
+        return !Object.entries(formError).length
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        const { email, password } = form.fields
+        const { email, password } = fields
         if (!isFormValiated()) {
             console.log("failed")
-            console.log(form)
             return
         }
-        setForm({ loading: true })
+        setFields({ loading: true })
         console.log("submit")
         try {
             await onLogin(email, password)
-            navigate("/feeds")
         } catch (error) {
             console.log("invalid user")
-            setForm({error})
+            setFields({error})
         }
     }
     return (<>
@@ -56,7 +53,7 @@ const Register = () => {
                         <input
                             name="email"
                             type="email"
-                            disabled={form.loading}
+                            disabled={auth.loading}
                             className="form-control has-error"
                             id="floatingInput"
                             placeholder="name@example.com"
@@ -64,16 +61,17 @@ const Register = () => {
                             required />
                         <label htmlFor="floatingInput">Email address</label>
                     </div>
-                    {form.error
+                    {fields.error
                         ?.email
                         ?.length
-                        ? <small className="text-danger">* {form.error.email}</small>
+                        ? <small className="text-danger">* {fields.error.email}</small>
                         : null}
+
                     <div className="form-floating mt-2">
                         <input
                             name="password"
                             type="password"
-                            disabled={form.loading}
+                            disabled={auth.loading}
                             className="form-control"
                             id="floatingPassword"
                             placeholder="Password"
@@ -81,20 +79,19 @@ const Register = () => {
                             required />
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
-                    {form.error
+                    {fields.error
                         ?.password
                         ?.length
-                        ? <small className="text-danger">* {form.error.password}</small>
+                        ? <small className="text-danger">* {fields.error.password}</small>
                         : null}
 
-                    {form.error
-                        ?.message
+                    {auth.error // ?.message
                         ?.length
-                        ? <div class="alert alert-danger mt-2" role="alert"> {form.error.message} </div>
+                        ? <div class="alert alert-danger mt-2" role="alert"> {auth.error} </div>
                         : null}
                         
                     <button
-                        disabled={form.loading}
+                        disabled={auth.loading}
                         className="w-100 btn btn-lg btn-primary mt-3"
                         onClick={onSubmit}
                         type="submit">Sign In</button>

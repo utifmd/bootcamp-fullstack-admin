@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavBar, VehicleItem } from "../../components"
+import { VehicleItem } from "../../components"
 
 const vehicles = [
     {
