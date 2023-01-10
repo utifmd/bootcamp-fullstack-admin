@@ -1,5 +1,5 @@
 class HistoryRequest {
-    constructor(fuel, income, vehicleId, userId) {
+    constructor({fuel, income, vehicleId, userId}) {
         this.fuel = fuel
         this.income = income
         this.vehicleId = vehicleId

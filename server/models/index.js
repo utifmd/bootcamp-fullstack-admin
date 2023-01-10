@@ -30,6 +30,9 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+const AuthRequest = require("./request/AuthRequest")
+const AuthResponse = require("./response/AuthResponse")
+
 const HistoryRequest = require("./request/HistoryRequest")
 const UserRequest = require("./request/UserRequest")
 const VehicleRequest = require("./request/VehicleRequest")
@@ -37,6 +40,7 @@ const VehicleRequest = require("./request/VehicleRequest")
 const HistoryResponse = require("./response/HistoryResponse")
 const UserResponse = require("./response/UserResponse")
 const VehicleResponse = require("./response/VehicleResponse")
+const Message = require("./response/Message")
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -47,5 +51,8 @@ db.VehicleRequest = VehicleRequest;
 db.HistoryResponse = HistoryResponse;
 db.UserResponse = UserResponse;
 db.VehicleResponse = VehicleResponse;
+db.AuthRequest = AuthRequest;
+db.AuthResponse = AuthResponse;
+db.Message = Message;
 
 module.exports = db;

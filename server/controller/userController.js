@@ -1,15 +1,52 @@
+const { User, UserRequest, UserResponse, Message } = require("../models")
 class Controller {
-    static readAll(req, resp) {
-        resp.json("user readAll")
+    static async readAll(req, resp) {
+        try {
+            const data = await User.findAll()
+            const response = UserResponse.asList(data)
+            resp.send(response)
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
-    static read(req, resp) {
-        resp.json("user read")
+    static async read(req, resp) {
+        try {
+            const { id } = req.params
+            console.log(`"user read" ${id}`)
+            const data = await User.findByPk(id)
+            const response = new UserResponse(data)
+            resp.send(response)
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
-    static delete(req, resp) {
-        resp.json("user delete")
+    static async delete(req, resp) {
+        try {
+            const { id } = req.params
+            resp.json(`"user delete" ${id}`)
+            const state = await User.destroy({ where: { id } })
+            let text = state === 1 
+                ? `Category with id ${id} has been deleted` 
+                : { message: `Couldn\'t delete category with id ${id}` }
+            resp.send(new Message(text))
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
-    static update(req, resp) {
-        resp.json("user update")
+    static async update(req, resp) {
+        try {
+            const { id } = req.params
+            const request = new UserRequest(req.body)
+            console.log(`user update ${req.params.id}`)
+            const [state] = await User.update(request, { where: { id }})
+            let text = state === 1 
+                ? `User with id ${id} has been updated` 
+                : { message: `Couldn\'t update user with id ${id}` }
+            resp.send(new Message(text))
+            
+        } catch (error) {
+            resp.send(new Message(error))
+        }
     }
 }
 module.exports = Controller

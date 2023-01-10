@@ -1,5 +1,5 @@
 class UserRequest {
-    constructor(name, role, identityNumber, telp, email, imageUrl){
+    constructor({name, role, identityNumber, telp, email, imageUrl}){
         this.name = name
         this.role = role
         this.identityNumber = identityNumber

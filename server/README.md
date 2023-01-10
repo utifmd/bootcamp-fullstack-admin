@@ -1,18 +1,5 @@
 # Pool Angkot
 ## Pool Angkot adalah apliksi manajemen angkot dan driver bagi orang-orang yang ingin kejar setoran.
-## sequelize-cli commands
-### History
-```code
-npx sequelize-cli model:generate --name History --attributes "fuel: integer, income: integer, vehicleId: integer, userId: integer, idVehicle:integer, idUser:integer"
-```
-### Vehicle
-```code
-npx sequelize-cli model:generate --name Vehicle --attributes "name:string, status:string, route:string, passengerCapacity:string, policeNumber:string, vendor:string, imageUrl:string, userId:integer, idHistory:integer"
-```
-### Users
-```code
-npx sequelize-cli model:generate --name User --attributes "name:string, role:string, identityNumber:integer, telp:string, email:string, password:string, imageUrl:string, idHistory:integer"
-```
 
 ### One user has many histories
 ```url
@@ -38,12 +25,12 @@ http://localhost:5000/signin?_expand=user
 ### User
 ```json
 {
-    "id": 2,
-    "name": "Brad pitt",
-    "role": "driver",
-    "identityNumber": 1002,
-    "telp": "+62 852-7286-9009",
-    "email": "bradpitt@gmail.com",
+    "id": 1,
+    "name": "Utif Milkedori",
+    "role": "admin",
+    "identityNumber": 1001,
+    "telp": "+62 852-7286-9008",
+    "email": "utifmd@gmail.com",
     "password": "121212",
     "imageUrl": "https://via.placeholder.com/150",
     "createdAt": "2022-12-26 11:22:17.87+00",
@@ -62,7 +49,6 @@ http://localhost:5000/signin?_expand=user
     "policeNumber": "B 1001 BA",
     "vendor": "Toyota",
     "imageUrl": "https://via.placeholder.com/150",
-    "userId": 2,
     "createdAt": "2022-12-26 11:22:17.87+00",
     "updatedAt": null
 }
@@ -80,7 +66,19 @@ http://localhost:5000/signin?_expand=user
     "updatedAt": null
 }
 ```
-
+## sequelize-cli commands
+### History
+```code
+npx sequelize-cli model:generate --name History --attributes "fuel:integer, income:integer, vehicleId:integer, userId:integer, VehicleId:integer, UserId:integer"
+```
+### Vehicle
+```code
+npx sequelize-cli model:generate --name Vehicle --attributes "name:string, status:string, route:string, passengerCapacity:integer, policeNumber:string, vendor:string, imageUrl:string"
+```
+### Users
+```code
+npx sequelize-cli model:generate --name User --attributes "name:string, role:string, identityNumber:integer, telp:string, email:string, password:string, imageUrl:stri"
+```
 ## Refferencies
 ### 
 ```url

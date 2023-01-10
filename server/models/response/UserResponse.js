@@ -1,5 +1,5 @@
 class UserResponse {
-    constructor(id, name, role, identityNumber, telp, imageUrl, createdAt, updatedAt){
+    constructor({id, name, role, identityNumber, telp, imageUrl, createdAt, updatedAt}){
         this.id = id
         this.name = name
         this.role = role
@@ -8,6 +8,10 @@ class UserResponse {
         this.imageUrl = imageUrl
         this.createdAt = createdAt
         this.updatedAt = updatedAt
+    }
+    static asList(response) {
+        return response
+            .map(user => new UserResponse(user))
     }
 }
 module.exports = UserResponse
