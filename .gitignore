@@ -2,10 +2,12 @@
 
 # dependencies
 /client/node_modules
+/client/build
 /client/packege-lock.json
 /client/.env
 
 /server/node_modules
+/server/packege-lock.json
 /server/.env
 
 /.pnp

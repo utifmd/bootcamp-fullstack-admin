@@ -1,20 +1,7 @@
-import { useState } from "react"
-import { NavBar } from "../../components"
+import { useLoaderData } from "react-router-dom"
 
-const initialUser = {
-    id: 2,
-    name: "Brad pitt",
-    role: "driver",
-    identityNumber: 1002,
-    telp: 6285272869009,
-    email: "bradpitt@gmail.com",
-    password: "121212",
-    imageUrl: "https://via.placeholder.com/150",
-    createdAt: "2022-12-26 11:22:17.87+00",
-    updatedAt: null
-}
 const Edit = () => {
-    const [form] = useState({ user: initialUser, error: {}, loading: false })
+    const driver = useLoaderData()
     const onValueChange = (e) => {
         e.preventDefault()
         let name = e.target.name
@@ -22,7 +9,6 @@ const Edit = () => {
         console.log(name, value)
     }
     return(<>
-        {/* <NavBar active={'drivers'} /> */}
         <div className="container">
             <form className="p-4 p-md-5">
                 <div className="lead mb-3">Please complete your info</div>
@@ -35,7 +21,7 @@ const Edit = () => {
                                 className="form-control" 
                                 id="floatingName" 
                                 placeholder="Full name"
-                                defaultValue={form?.user?.name}
+                                defaultValue={driver.name}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingName">Full name</label>
@@ -49,7 +35,7 @@ const Edit = () => {
                                 className="form-control" 
                                 id="floatingPhone" 
                                 placeholder="Phone number"
-                                defaultValue={form?.user?.telp}
+                                defaultValue={driver.telp}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingPhone">No. telp</label>
@@ -63,7 +49,7 @@ const Edit = () => {
                                 className="form-control" 
                                 id="floatingNik" 
                                 placeholder="(NIK) Nomor induk kependudukan"
-                                defaultValue={form?.user?.identityNumber}
+                                defaultValue={driver.identityNumber}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingNik">Nik</label>

@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigation } from "react-router-dom"
 import { useAuth } from "../../state"
+import { Loading } from "../components"
 
-const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
+const NavBar = () => {
     const { auth, onLogout } = useAuth()
+    const navigation = useNavigation()
+
     console.log(auth)
     return (<nav className="navbar navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid justify-content-between">
@@ -19,25 +22,7 @@ const NavBar = ({ onSearchValueChange, sortToggle, setSortToggle }) => {
                     </li>
                 </ul>
             </div>
-            {setSortToggle ? <i
-                className={`fa-solid ${sortToggle
-                    ? "fa-arrow-down-wide-short"
-                    : "fa-arrow-up-wide-short"}`}
-                onClick={() => setSortToggle(!sortToggle)} />
-                : null}
-            {onSearchValueChange ? <div className="d-flex mx-2">
-                <form className="d-flex input-group w-auto">
-                    <span className="input-group-text border-0" id="search-addon"><i className="fas fa-search"></i></span>
-                    <input
-                        type="search"
-                        className="form-control rounded"
-                        placeholder="Search"
-                        aria-label="Search"
-                        aria-describedby="search-addon"
-                        onChange={onSearchValueChange}
-                    />
-                </form>
-            </div> : null}
+            {navigation.state === "loading" ? <Loading /> : null}
             {auth?.token?.name ? <div className="d-flex align-items-center me-2">
                 <div className="dropdown">
                     <Link

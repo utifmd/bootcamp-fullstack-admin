@@ -1,8 +1,6 @@
 import {
-    Route, 
-    Outlet,
-    createBrowserRouter,
-    createRoutesFromElements} from "react-router-dom"
+    Route, Outlet, createBrowserRouter, createRoutesFromElements
+} from "react-router-dom"
 import authRoute from "./authRouter"
 import driverRouter from "./driverRouter"
 import vehicleRouter from "./vehicleRouter"
@@ -13,13 +11,11 @@ import { AuthProvider } from '../state'
 const router = createRoutesFromElements(
     <Route
         path="/"
-        element={<AuthProvider><Outlet/></AuthProvider>}
-        errorElement={<Error/>}>
+        element={<AuthProvider><Outlet /></AuthProvider>}
+        errorElement={<Error />}>
 
-        <Route
-            index
-            element={<Home/>} />
-
+        <Route index element={<Home />} />
+        
         {authRoute()}
         {feedRouter()}
         {driverRouter()}

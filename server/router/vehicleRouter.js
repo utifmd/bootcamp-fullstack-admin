@@ -4,6 +4,7 @@ const { authentication, fileUploader } = require("../middleware")
 
 router.get("/vehicles", vehicleController.readAll)
 router.get("/vehicles/:id", vehicleController.read)
+router.get("/vehicles/search/:query", vehicleController.readAllBy)
 router.delete("/vehicles/remove/:id", authentication, vehicleController.delete)
 router.post(
     "/vehicles/add", 

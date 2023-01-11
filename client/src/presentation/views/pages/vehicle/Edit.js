@@ -1,21 +1,7 @@
-import { useState } from "react"
-import { NavBar } from "../../components"
+import { useLoaderData } from "react-router-dom"
 
-const initialVehicle = {
-    "id": 1,
-    "name": "Angkot B01",
-    "status": null,
-    "route": "Kebayoran lama - Ciledug",
-    "passengerCapacity": 6,
-    "policeNumber": "B 1001 BA",
-    "vendor": "Toyota",
-    "imageUrl": "https://via.placeholder.com/150",
-    "userId": 2,
-    "createdAt": "2022-12-26 11:22:17.87+00",
-    "updatedAt": null
-}
 const Edit = () => {
-    const [form] = useState({ vehicle: initialVehicle, error: {}, loading: false })
+    const vehicle = useLoaderData()
     const onValueChange = (e) => {
         e.preventDefault()
         let name = e.target.name
@@ -36,7 +22,7 @@ const Edit = () => {
                                 className="form-control"
                                 id="floatingName"
                                 placeholder="Vehicle name"
-                                defaultValue={form?.vehicle?.name}
+                                defaultValue={vehicle?.name}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingName">Vehicle name</label>
@@ -50,7 +36,7 @@ const Edit = () => {
                                 className="form-control"
                                 id="floatingRoute"
                                 placeholder="Phone number"
-                                defaultValue={form?.vehicle?.route}
+                                defaultValue={vehicle?.route}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingRoute">Route</label>
@@ -66,7 +52,7 @@ const Edit = () => {
                                 className="form-control"
                                 id="floatingpoliceNumber"
                                 placeholder="Plat nomor kendaraan"
-                                defaultValue={form?.vehicle?.policeNumber}
+                                defaultValue={vehicle?.policeNumber}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingpoliceNumber">Plat nomor</label>
@@ -80,7 +66,7 @@ const Edit = () => {
                                 className="form-control"
                                 id="floatingvendor"
                                 placeholder="Vendor"
-                                defaultValue={form?.vehicle?.vendor}
+                                defaultValue={vehicle?.vendor}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingvendor">Vendor</label>
@@ -94,7 +80,7 @@ const Edit = () => {
                                 className="form-control"
                                 id="floatingpassengerCapacity"
                                 placeholder="Passenger capacity"
-                                defaultValue={form?.vehicle?.passengerCapacity}
+                                defaultValue={vehicle?.passengerCapacity}
                                 onChange={onValueChange}
                                 required />
                             <label htmlFor="floatingpassengerCapacity">Passenger capacity</label>
@@ -102,7 +88,7 @@ const Edit = () => {
                     </div>
                 </div>
                 <div className="mt-3">
-                    <label class="form-label" for="imageFile">Foto angkot</label>
+                    <label class="form-label" for="imageFile">Photo</label>
                     <input name="imageFile" type="file" class="form-control form-control-lg" id="imageFile" />
                 </div>
                 <button className="btn btn-lg btn-primary mt-3" type="submit">Update</button>

@@ -1,6 +1,6 @@
 import { asDateFormat } from "../../helper"
 
-const InfoListView = ({ vehicle }) => <ul className="list-group list-group-light">
+const InfoListView = ({ vehicle }) => vehicle && <ul className="list-group list-group-light">
     <li className="list-group-item d-flex justify-content-between align-items-center px-5">
         <div>
             <div className="fw-bold">Name</div>

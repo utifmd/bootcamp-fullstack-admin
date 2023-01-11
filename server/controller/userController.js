@@ -1,8 +1,21 @@
-const { User, History, UserRequest, UserResponse, Message } = require("../models")
+const { User, History, UserRequest, UserResponse, Message, Sequelize } = require("../models")
 class Controller {
     static async readAll(req, resp) {
         try {
             const data = await User.findAll()
+            const response = UserResponse.asList(data)
+            resp.status(200).send(response)
+        } catch (error) {
+            resp.status(400).send(new Message(error))
+        }
+    }
+    static async readAllBy(req, resp) {
+        try {
+            const { query } = req.params
+            const name = Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.col('name')), 'LIKE', `%${query.toLowerCase()}%` 
+            )
+            const data = await User.findAll({ where: name }) 
             const response = UserResponse.asList(data)
             resp.status(200).send(response)
         } catch (error) {

@@ -25,7 +25,7 @@ const AuthProvider = ({children}) => {
             })
             console.log(token)
             setAuth({ token, loading: false })
-            navigate("/feeds", { replace: true })
+            // navigate("/feeds", { replace: true })
         } catch (error) {
             setAuth({ error, loading: false })
             console.log(error)

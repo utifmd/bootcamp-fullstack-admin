@@ -10,7 +10,7 @@ const InfoTable = ({ vehicle }) => <table class="table align-middle mb-0 bg-whit
         </tr>
     </thead>
     <tbody>
-        {vehicle.histories.map(history =>
+        {vehicle && vehicle.histories.map(history =>
             <tr key={history.id}>
                 <td>
                     <div class="d-flex align-items-center">

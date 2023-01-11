@@ -1,5 +1,6 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Feed } from "../views/pages"
+import { getFeeds } from "../../domain"
 
 const Router = () => <Route
     path="feeds"
@@ -7,6 +8,7 @@ const Router = () => <Route
 
     <Route
         index
+        loader={getFeeds}
         element={<Feed/>}/>
 </Route>
 

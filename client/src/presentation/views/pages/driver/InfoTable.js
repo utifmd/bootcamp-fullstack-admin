@@ -1,5 +1,5 @@
 import { asCapitalize, asDateTimeFormat, asIdr } from "../../helper"
-const InfoTable = ({ user }) => <table class="table align-middle mb-0 bg-white">
+const InfoTable = ({ driver }) => <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
         <tr>
             <th>Name</th>
@@ -10,19 +10,19 @@ const InfoTable = ({ user }) => <table class="table align-middle mb-0 bg-white">
         </tr>
     </thead>
     <tbody>
-        {user.histories.map(history =>
+        {driver.histories?.map(history =>
             <tr key={history.id}>
                 <td>
                     <div class="d-flex align-items-center">
                         <img
-                            src={user.imageUrl}
+                            src={driver.imageUrl}
                             class="rounded-circle"
                             alt=""
                             style={{ width: '45px', height: '45px' }}
                         />
                         <div class="ms-3">
-                            <p class="fw-bold mb-1">{user.name}</p>
-                            <p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{asCapitalize(user.role)}</span></p>
+                            <p class="fw-bold mb-1">{driver.name}</p>
+                            <p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{asCapitalize(driver.role)}</span></p>
                         </div>
                     </div>
                 </td>
