@@ -9,7 +9,7 @@ const authentication = (req, resp, next) => {
             return
         }
         const userId = tokenNeutralizer(access_token)
-        req.body.userId = userId
+        resp.locals.userId = userId
         next()
     } catch (error) {
         resp.status(400).send(new Message(error))

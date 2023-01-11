@@ -13,12 +13,12 @@ class Controller {
         try {
             const { id } = req.params
             console.log(`"user read" ${id}`)
-            const data = await User.findByPk(id, {include: History})
+            const data = await User.findByPk(id, { include: History })
             const response = data
                 ? new UserResponse(data)
                 : new Message({ message: `User with id ${id} does\'nt exist` })
             resp
-                .status(data? 200: 404)
+                .status(data ? 200 : 404)
                 .send(response)
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -26,14 +26,14 @@ class Controller {
     }
     static async delete(req, resp) {
         try {
-            const { id } = req.params
+            const id = resp.locals.userId
             resp.json(`"user delete" ${id}`)
             const state = await User.destroy({ where: { id } })
-            let text = state === 1 
-                ? `User with id ${id} has been deleted` 
+            let text = state === 1
+                ? `User with id ${id} has been deleted`
                 : { message: `Couldn\'t delete category with id ${id}` }
             resp
-                .status(state === 1? 200: 404)
+                .status(state === 1 ? 200 : 404)
                 .send(new Message(text))
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -41,17 +41,16 @@ class Controller {
     }
     static async update(req, resp) {
         try {
-            const { id } = req.params
+            const id = resp.locals.userId
             const request = new UserRequest(req.body)
-            console.log(`user update ${req.params.id}`)
             const [state] = await User.update(request, { where: { id } })
-            let text = state === 1 
-                ? `User with id ${id} has been updated` 
+            let text = state === 1
+                ? `User with id ${id} has been updated`
                 : { message: `Couldn\'t update user with id ${id}` }
             resp
-                .status(state === 1? 200: 404)
+                .status(state === 1 ? 200 : 404)
                 .send(new Message(text))
-            
+
         } catch (error) {
             resp.status(400).send(new Message(error))
         }

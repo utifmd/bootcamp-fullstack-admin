@@ -23,6 +23,7 @@ class Controller {
     static async create(req, resp) {
         try {
             console.log("vehicle create")
+            req.body.userId = resp.locals.userId
             const request = new VehicleRequest(req.body)
             const data = await Vehicle.create(request)
             const response = new VehicleResponse(data)
@@ -34,6 +35,7 @@ class Controller {
     static async delete(req, resp) {
         try {
             const { id } = req.params
+            req.body.userId = resp.locals.userId
             resp.json(`"vehicle delete" ${id}`)
             const state = await Vehicle.destroy({ where: { id }})
             let text = state === 1 
@@ -47,6 +49,7 @@ class Controller {
     static async update(req, resp) {
         try {
             const { id } = req.params
+            req.body.userId = resp.locals.userId
             const request = new VehicleRequest(req.body)
             console.log(`vehicle update ${req.params.id}`)
             const [state] = await Vehicle.update(request, { where: { id }})

@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User'
   });
   User.addHook('beforeValidate', (user, options) => {
-    user.password = encrypt(user.password)
+    if (user.password) user.password = encrypt(user.password)
     user.role = user.role || "driver"
     user.imageUrl = user.imageUrl || "https://via.placeholder.com/150" 
   });

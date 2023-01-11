@@ -12,9 +12,11 @@ class Controller {
     static async create(req, resp) {
         try {
             console.log("history create")
+            req.body.userId = resp.locals.userId
             const request = new HistoryRequest(req.body)
             const data = await History.create(request)
             const response = new HistoryResponse(data)
+
             resp.status(200).send(response)
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -23,8 +25,7 @@ class Controller {
     static async update(req, resp) {
         try {
             const { id } = req.params
-            
-            req.body.userId = id
+            req.body.userId = resp.locals.userId
             const request = new HistoryRequest(req.body)
             console.log(`history update ${req.params.id}`)
             const [state] = await History.update(request, { where: { id }})

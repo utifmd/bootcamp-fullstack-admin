@@ -43,13 +43,13 @@ class Controller {
     }
     static async update(req, resp) {
         try {
-            const { userId } = req.body
+            const id = resp.locals.userId
             const request = new AuthRequest(req.body)
             console.log(`user update ${req.params.id}`)
-            const [state] = await User.update(request, { where: { id: userId } })
+            const [state] = await User.update(request, { where: { id } })
             let text = state === 1
-                ? `User with id ${userId} has been changed`
-                : { message: `Couldn\'t change user with id ${userId}` }
+                ? `User with id ${id} has been changed`
+                : { message: `Couldn\'t change user with id ${id}` }
             resp
                 .status(state === 1 ? 200 : 404)
                 .send(new Message(text))
