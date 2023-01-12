@@ -43,7 +43,7 @@ const Register = () => {
                     {error
                         ?.message
                         ?.length
-                        ? <div class="alert alert-danger mt-2" role="alert"> {error} </div>
+                        ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
                         : null}
 
                     <button

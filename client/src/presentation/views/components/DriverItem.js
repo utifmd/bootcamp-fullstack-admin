@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { asPhoneFormat, asDateFormat } from "../helper"
-const DriverItem = ({driver}) => <>
-    <div className="col">
+const DriverItem = ({ driver }) => <>
+    {driver && <div className="col">
         <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div className="col p-4 d-flex flex-column position-static bg-light">
                 <strong className="d-inline-block mb-2 text-primary">{driver.role.toUpperCase()}</strong>
@@ -11,9 +11,9 @@ const DriverItem = ({driver}) => <>
                 <Link to={`../info/${driver.id}`} className="stretched-link mt-3">Detail info</Link>
             </div>
             <div className="col-auto d-none d-lg-block">
-                <img className="bd-placeholder-img h-100" src={driver.imageUrl} role="img" />
+                <img className="bd-placeholder-img" width={230} height={230} src={driver.imageUrl} role="img" />
             </div>
         </div>
-    </div>
+    </div>}
 </>
 export default DriverItem

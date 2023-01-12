@@ -3,11 +3,12 @@ const { userController } = require("../controller")
 const { authentication, fileUploader } = require("../middleware")
 
 router.get("/users", userController.readAll)
-router.get("/users/:id", userController.read)
 router.get("/users/search/:query", userController.readAllBy)
+router.get("/users/:id", authentication, userController.readBy)
+router.get("/user", authentication, userController.read)
 router.delete(
-    "/users/remove", 
-    authentication, 
+    "/users/remove/:id", 
+    authentication,
     userController.delete
 )
 router.put(

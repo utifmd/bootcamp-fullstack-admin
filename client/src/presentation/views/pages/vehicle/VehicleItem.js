@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { asDateTimeFormat } from "../../helper"
+import { getAccountInfo } from "../../../../domain"
 
 const Item = ({ vehicle }) => {
+    const { account } = getAccountInfo()
     const [status, setStatus] = useState(vehicle.status === "onboarding")
     const onTakeVehicle = (e) => {
         e.preventDefault()
@@ -15,11 +17,14 @@ const Item = ({ vehicle }) => {
             <div className="card-body">
                 <h5 className="card-title">{vehicle.name}</h5>
                 <p className="card-text">{vehicle.route}</p>
-                <button
-                    disabled={status}
-                    onClick={onTakeVehicle}
-                    className="btn btn-primary">{status ? "taken" : "take"}
-                </button>
+                {account
+                    ?.role === "driver"
+                    ? <button
+                        disabled={status}
+                        onClick={onTakeVehicle}
+                        className="btn btn-primary">{status ? "taken" : "take"}</button>
+                    : null
+                }
             </div>
             <div className="card-footer text-muted">Last used at {asDateTimeFormat(vehicle.updatedAt)}</div>
         </Link>

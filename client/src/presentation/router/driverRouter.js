@@ -1,12 +1,12 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Driver, DriverEdit, DriverInfo, Error } from "../views/pages"
-import { AuthScope } from "../state"
 import { getDrivers, getDriver, putDriver } from "../../domain"
+import { AuthScope, AdminScope } from "../state"
 
 const router = () => 
 <Route 
     path="/driver" 
-    element={<AuthScope><DashboardUser/></AuthScope>}>
+    element={<DashboardUser/>}>
         
     <Route
         index
@@ -15,18 +15,18 @@ const router = () =>
     <Route 
         path="list"
         loader={getDrivers}
-        element={<Driver/>} />
+        element={<AuthScope><Driver/></AuthScope>} />
 
     <Route 
         path="info/:id"
         loader={getDriver}
-        element={<DriverInfo/>} />
+        element={<AuthScope><DriverInfo/></AuthScope>} />
 
     <Route 
         path="edit/:id"
         loader={getDriver}
         action={putDriver}
-        element={<DriverEdit/>} />
+        element={<AuthScope><AdminScope><DriverEdit/></AdminScope></AuthScope>} />
 </Route>
 
 export default router

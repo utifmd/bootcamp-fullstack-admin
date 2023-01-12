@@ -1,4 +1,4 @@
-const { User, AuthRequest, AuthResponse, Message } = require("../models")
+const { User, AuthRequest, AuthResponse, Message, UserResponse } = require("../models")
 const { isEncryptionMatches, tokenGenerator } = require("../helper")
 
 class Controller {
@@ -17,6 +17,21 @@ class Controller {
             }
             const token = tokenGenerator(data.id)
             resp.status(200).send(new AuthResponse(token))
+
+        } catch (error) {
+            resp.status(400).send(new Message(error))
+        }
+    }
+    static async readBy(req, resp) {
+        try {
+            const id = resp.locals.userId
+            const data = await User.findByPk(id)
+
+            if (!data) {
+                resp.status(404).send(new Message({ message: 'User not found.' }))
+                return
+            }
+            resp.status(200).send(new UserResponse(data))
 
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -60,6 +75,22 @@ class Controller {
 
             state === 1
                 ? resp.status(200).send(new AuthResponse(token))
+                : resp.status(403).send(new Message({message: `Couldn\'t change user with id ${id}`}))
+                
+        } catch (error) {
+            resp
+                .status(400)
+                .send(new Message(error))
+        }
+    }
+    static async updateBy(req, resp) {
+        try {
+            const id = resp.locals.userId
+            const request = new UserResponse(req.body)
+            
+            const [state] = await User.update(request,{ where:{ id } })
+            state === 1
+                ? resp.status(200).send(new UserResponse(data))
                 : resp.status(403).send(new Message({message: `Couldn\'t change user with id ${id}`}))
                 
         } catch (error) {

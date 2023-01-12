@@ -2,12 +2,14 @@ import { useLoaderData } from "react-router-dom"
 import { asDateTimeFormat, asCapitalize } from "../../helper"
 
 const Feed = () => {
-    const feeds = useLoaderData()
+    const { feeds, error } = useLoaderData()
     return (
         <div className="container">
+            {error &&
+                    <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
             <div className="row">
                 <table>
-                    {feeds?.map((history, i) => i % 2 == 0
+                    {feeds?.map((history, i) => i % 2 === 0
                         ? <tr><td></td><td className="border-start border-5 py-5 px-2">
                             <div class="card">
                                 <div class="card-header">{history.vehicle.policeNumber}</div>

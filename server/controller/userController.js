@@ -24,6 +24,21 @@ class Controller {
     }
     static async read(req, resp) {
         try {
+            const id = resp.locals.userId
+            console.log(`"user read" ${id}`)
+            const data = await User.findByPk(id, { include: History })
+            const response = data
+                ? new UserResponse(data)
+                : new Message({ message: `User with id ${id} does\'nt exist` })
+            resp
+                .status(data ? 200 : 404)
+                .send(response)
+        } catch (error) {
+            resp.status(400).send(new Message(error))
+        }
+    }
+    static async readBy(req, resp) {
+        try {
             const { id } = req.params
             console.log(`"user read" ${id}`)
             const data = await User.findByPk(id, { include: History })
@@ -39,7 +54,7 @@ class Controller {
     }
     static async delete(req, resp) {
         try {
-            const id = resp.locals.userId
+            const { id } = req.params// resp.locals.userId
             resp.json(`"user delete" ${id}`)
             const state = await User.destroy({ where: { id } })
             let text = state === 1

@@ -1,8 +1,9 @@
 import { Form, useLoaderData, useActionData, useNavigation } from "react-router-dom"
 const Edit = () => {
-    const driver = useLoaderData()
+    const loader = useLoaderData()
     const navigation = useNavigation()
     const { error } = useActionData() || {}
+    const { driver } = loader
     return (<>
         <div className="container">
             <Form className="p-4 p-md-5" method="put" encType="multipart/form-data">
@@ -64,10 +65,11 @@ const Edit = () => {
                     <label class="form-label" for="image">Pas foto</label>
                     <input name="image" type="file" class="form-control form-control-lg" id="image" />
                 </div>
-                {error
+                {loader
+                    ?.error
                     ?.message
                     ?.length
-                    ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
+                    ? <div class="alert alert-danger mt-2" role="alert"> {loader.error.message} </div>
                     : null}
                 <button
                     className="btn btn-lg btn-primary mt-3"

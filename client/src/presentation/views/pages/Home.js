@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom"
 import { Header, Footer, Banner } from "../components"
 
 const Home = () => {
-    const error = useLoaderData()
+    const { error } = useLoaderData() || {}
     
     return <>
         <Header />

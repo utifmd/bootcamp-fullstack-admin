@@ -5,7 +5,7 @@ const authentication = (req, resp, next) => {
     try {
         const { access_token } = req.headers
         if(!access_token){
-            resp.status(404).send(new Message({message: `unauthorized.`}))
+            resp.status(401).send(new Message({message: `unauthorized.`}))
             return
         }
         const userId = tokenNeutralizer(access_token)

@@ -1,9 +1,11 @@
 import { Route } from "react-router-dom"
-import { AuthScope } from "../state"
-import { 
-    Login, Register, AuthEdit, Error, DashboardGuest 
+import {
+    Login, Register, AuthEdit, Error, DashboardGuest, DriverEdit
 } from "../views/pages"
-import { changePassword, signIn } from "../../domain"
+import {
+    changePassword, signUp, signIn, checkAccessToken, getAuth, putAuth, 
+} from "../../domain"
+import { AuthScope } from "../state"
 
 const Router = () => <Route
     path="/auth"
@@ -14,17 +16,27 @@ const Router = () => <Route
 
     <Route
         path="login"
+        loader={checkAccessToken}
         action={signIn}
         element={<Login />} />
 
     <Route
         path="register"
+        loader={checkAccessToken}
+        action={signUp}
         element={<Register />} />
 
     <Route
-        path="edit"
+        path="change"
         action={changePassword}
-        element={<AuthScope><AuthEdit/></AuthScope>} />
+        element={<AuthScope><AuthEdit /></AuthScope>} />
+
+    <Route
+        path="edit"
+        loader={getAuth}
+        action={putAuth}
+        element={<AuthScope><DriverEdit/></AuthScope>} />
+
 </Route>
 
 export default Router

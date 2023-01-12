@@ -1,10 +1,11 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Feed } from "../views/pages"
+import { AuthScope } from "../state"
 import { getFeeds } from "../../domain"
 
 const Router = () => <Route
     path="feeds"
-    element={<DashboardUser/>}>
+    element={<AuthScope><DashboardUser/></AuthScope>}>
 
     <Route
         index

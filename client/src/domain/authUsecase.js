@@ -1,86 +1,155 @@
 import { redirect } from "react-router-dom"
-const changerValidation = ({ currentPassword, password, confirmPassword }) => {
-    let error = {}
-    if (!currentPassword) error.currentPassword = "Current password could not be empty."
-    if (!password) error.password = "New password could not be empty."
-    if (!confirmPassword) error.confirmPassword = "Confirm password could not be empty."
-    if (confirmPassword !== password) error.confirmPassword = "Passwords does not match."
+import { 
+    signInValidations, signUpValidations, changerValidations, driverValidations 
+} from "../presentation/views/helper"
+import { Service } from "../data"
 
-    return {
-        error, isValid: !Object.entries(error).length
+const signUp = async ({ request }) => {
+    const formData = await request.formData()
+    const fields = Object.fromEntries(formData)
+    const { error, isValid } = signUpValidations(fields)
+
+    if (isValid) {
+        try {
+            const token = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        access_token: `eyJhbGciOiJIUzI1NiJ9.MQ.NdoybHTM5-q5sE7XOYgDW-zDTHbFiMmiFQxbiM3Qgss`
+                    })
+                }, 1000)
+            })
+            const account = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        name: "Brad pitt",
+                        imageUrl: "https://via.placeholder.com/150"
+                    })
+                }, 1000)
+            })
+            postAccountInfo(token, account)
+            return redirect(`/feeds`)
+        } catch (error) {
+            return { error: { message: "an error occurred." } }
+        }
+    }
+    return { error }
+}
+const getAuth = async ({ params }) => {
+    try {
+        const auth = await Service.getAuth(params.id)
+        if (!auth.data) {
+            return { error: { message: "There was an error occurred." } }
+        }
+        return { auth: auth.data }
+    } catch (error) {
+        return { error }
     }
 }
-const signUpValidation = ({ email, password, confirmPassword }) => {
-    let error = {}
-    if (!email) error.email = "Current password could not be empty."
-    if (!password) error.password = "New password could not be empty."
-    if (!confirmPassword) error.confirmPassword = "Confirm password could not be empty."
-    if (confirmPassword !== password) error.confirmPassword = "Passwords does not match."
+const putAuth = async ({ request, params }) => {
+    try {
+        const formData = await request.formData()
+        const fields = Object.fromEntries(formData)
+        const { error, isValid } = driverValidations(fields)
+        
+        if (isValid) {
+            await Service.putAuth(fields)
 
-    return {
-        error, isValid: !Object.entries(error).length
-    }
-}
-const signInValidation = ({ email, password }) => {
-    let error = {}
-    if (!email) error.email = "Current password could not be empty."
-    if (!password) error.password = "New password could not be empty."
-
-    return {
-        error, isValid: !Object.entries(error).length
+            return redirect(`../info/${params.id}`)
+        }
+        return { error }
+    } catch (error) {
+        return { error }
     }
 }
 const signIn = async ({ request }) => {
     const formData = await request.formData()
     const fields = Object.fromEntries(formData)
-    const { error, isValid } = signInValidation(fields)
+    const { error, isValid } = signInValidations(fields)
 
     if (isValid) {
         try {
-            const path = await new Promise((resolve, reject) => {
+            const token = await new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    resolve(`/feeds`)
+                    if(fields.email === "u@m.com" && fields.password === "12") 
+                        resolve(`eyJhbGciOiJIUzI1NiJ9.MQ.NdoybHTM5-q5sE7XOYgDW-zDTHbFiMmiFQxbiM3Qgss`)
+                    else
+                        reject("{message: }")
                 }, 1000)
             })
-            // {
-            //     name: "Utif milkedori", 
-            //     imageUrl: "https://via.placeholder.com/150"
-            // }
-            return redirect(path)
+            const account = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve({
+                        name: "Brad pitt",
+                        role: "driver",
+                        imageUrl: "https://via.placeholder.com/150"
+                    })
+                }, 1000)
+            })
+            postAccountInfo(token, account)
+            return redirect(`/feeds`)
         } catch (error) {
-            return { error: { message: "attempting request" } }
+            return { error: { message: `There was an error loading your account.` } }
         }
     }
     return { error }
+}
+const signOut = async () => {
+    try {
+        const path = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(`/`)
+            }, 1000)
+        })
+        localStorage.clear()
+        return redirect(path)
+    } catch (error) {
+        console.log(error)
+        return { error: { message: "an error occurred." } }
+    }
 }
 const changePassword = async ({ request }) => {
-    const formData = await request.formData()
-    const fields = Object.fromEntries(formData)
-    const { error, isValid } = changerValidation(fields)
-
-    if (isValid) {
-        return { error: { message: "There was an error creating your account." } }
-    }
-    return { error }
-}
-const getAccessToken = async () => {
     try {
-        const token = await new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // reject({message: "There was an error loading your account."})
-                resolve({acceess_token: "eyJhbGciOiJIUzI1NiJ9.Ng.wz_Vuta0wPcDkryVdi5vB4SUYf7csoTu2og1oUvM8vY"})
-            }, 1000);
-        })
-        if (!token) {
-            return { error: { message: "There was an error loading your account." } }
-        }
-        return redirect(`/feeds?access_token=${token.acceess_token}`)
+        if(!localStorage.getItem("access_token")) return redirect(`/`)
+        
+        const formData = await request.formData()
+        const fields = Object.fromEntries(formData)
+        const { error, isValid } = changerValidations(fields)
+    
+        if (!isValid) return { error }
+        return redirect(`/`)
+        
     } catch (error) {
-
-        console.log(JSON.stringify(error, null, 2))
         return error
     }
 }
+const checkAccessToken = async () => {
+    try {
+        const token = localStorage.getItem("access_token")
+        if (!token) return null
+        return redirect(`/feeds`)
+    } catch (error) {
+        return error
+    }
+}
+const getAccountInfo = () => {
+    try {
+        const account = {}
+        const token = localStorage.getItem("access_token")
+        account.name = localStorage.getItem("name")
+        account.imageUrl = localStorage.getItem("imageUrl")
+        account.role = localStorage.getItem("role")
+
+        return { access_token: token, account: account }
+    } catch (error) {
+        return error
+    }
+}
+const postAccountInfo = (token, account) => {
+    localStorage.setItem("access_token", token)
+    localStorage.setItem("name", account.name)
+    localStorage.setItem("imageUrl", account.imageUrl)
+    localStorage.setItem("role", account.role)
+}
 export {
-    changePassword, signIn, getAccessToken
+    getAuth, putAuth, changePassword, signUp, signIn, signOut, checkAccessToken, getAccountInfo
 }

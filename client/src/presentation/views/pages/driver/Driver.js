@@ -6,7 +6,7 @@ import { backgroundStyle } from "../../helper"
 const Driver = () => {
     const [regex, setRegex] = useState("")
     const [sortToggle, setSortToggle] = useState(false)
-    const drivers = useLoaderData()
+    const {drivers, error} = useLoaderData()
 
     const onSearchValueChange = (e) => {
         e.preventDefault()
@@ -19,15 +19,17 @@ const Driver = () => {
                 sortToggle={sortToggle}
                 setSortToggle={setSortToggle}
                 onSearchValueChange={onSearchValueChange} />
+            {error &&
+                <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
 
             <div className="container pt-4 g-2">
                 <div class="row row-cols-1 row-cols-md-2">
                     {drivers
-                        .sort((a, b) => sortToggle
+                        ?.sort((a, b) => sortToggle
                             ? a.createdAt - b.createdAt
                             : b.createdAt - a.createdAt)
-                        .filter(({ name, email }) => name.includes(regex) || email.includes(regex))
-                        .map(driver => <DriverItem driver={driver} />)
+                        ?.filter(({ name, email }) => name?.includes(regex) || email?.includes(regex))
+                        ?.map(driver => <DriverItem driver={driver} />)
                     }
                 </div>
             </div>

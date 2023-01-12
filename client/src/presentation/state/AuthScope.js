@@ -1,12 +1,11 @@
-// import { Navigate } from "react-router-dom"
-// import { useAuth } from "./"
-
+import { Navigate } from "react-router-dom"
+import { getAccountInfo } from "../../domain"
 const AuthScope = ({children}) => {
-    // const { token } = useAuth()
+    const { access_token } = getAccountInfo()
     
-    // if(!token) {
-    //     return <Navigate to="/" replace />
-    // }
+    if(!access_token) {
+        return <Navigate to="/" replace />
+    }
     return children
 }
 export default AuthScope

@@ -1,11 +1,19 @@
-import { Link, useNavigation } from "react-router-dom"
+import { Link, useNavigate, useNavigation } from "react-router-dom"
+import { getAccountInfo } from "../../../domain"
 import { useAuth } from "../../state"
 import { Loading } from "../components"
 
 const NavBar = () => {
-    const { auth, onLogout } = useAuth()
     const navigation = useNavigation()
+    const navigate = useNavigate()
+    const auth = useAuth()
+    const { account } = getAccountInfo()
 
+    const onLogout = async (e) => {
+        e.preventDefault()
+        await auth.signOut()
+        navigate(-1)
+    }
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
@@ -24,7 +32,7 @@ const NavBar = () => {
                         </ul>
                     </div>
                     {navigation.state === "loading" || navigation.state === "submitting" ? <Loading /> : null}
-                    {auth?.token?.name ? <div className="d-flex align-items-center me-2">
+                    {account?.name ? <div className="d-flex align-items-center me-2">
                         <div className="dropdown">
                             <Link
                                 className="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -35,23 +43,23 @@ const NavBar = () => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src={auth?.token?.imageUrl}
+                                    src={account?.imageUrl}
                                     className="rounded-circle"
                                     height="25"
                                     alt="Black and White Portrait of a Man"
                                     loading="lazy"
                                 />
-                                <strong className="d-none d-sm-block ms-1 text-dark">{auth?.token?.name}</strong>
+                                <strong className="d-none d-sm-block ms-1 text-dark">{account?.name}</strong>
                             </Link>
                             <ul
                                 className="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuAvatar"
                             >
                                 <li>
-                                    <Link className="dropdown-item" to="/driver/edit">Change profile info</Link>
+                                    <Link className="dropdown-item" to="/auth/edit">Change profile info</Link>
                                 </li>
                                 <li>
-                                    <Link className="dropdown-item" to="/auth/edit">Change password</Link>
+                                    <Link className="dropdown-item" to="/auth/change">Change password</Link>
                                 </li>
                                 <li>
                                     <div onClick={onLogout} className="dropdown-item">Logout</div>
