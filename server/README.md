@@ -66,10 +66,24 @@ http://localhost:5000/signin?_expand=user
     "updatedAt": null
 }
 ```
+### Story
+```json
+{
+    "id": 1,
+    "vehicleId": 1,
+    "userId": 2,
+    "createdAt": "2022-12-26 11:22:17.87+00",
+    "updatedAt": null
+}
+```
 ## sequelize-cli commands
+### Story
+```code
+npx sequelize-cli model:generate --name Story --attributes "VehicleId:integer, UserId:integer"
+```
 ### History
 ```code
-npx sequelize-cli model:generate --name History --attributes "fuel:integer, income:integer, vehicleId:integer, userId:integer, VehicleId:integer, UserId:integer"
+npx sequelize-cli model:generate --name History --attributes "fuel:integer, income:integer, VehicleId:integer, UserId:integer"
 ```
 ### Vehicle
 ```code
@@ -135,6 +149,36 @@ npx sequelize-cli model:generate --name User --attributes "name:string, role:str
         "id": 1,
         "fuel": 300000,
         "income": 400000,
+        "vehicle": {
+            "id": 2,
+            "name": "Angkot B02",
+            "status": "standby",
+            "route": "Jonggol - Puri indah",
+            "passengerCapacity": 5,
+            "policeNumber": "B 1002 BA",
+            "vendor": "Datsun",
+            "imageUrl": "https://via.placeholder.com/150",
+            "createdAt": "2023-01-10T07:31:37.378Z",
+            "updatedAt": "2023-01-10T08:09:30.663Z"
+        },
+        "user": {
+            "id": 1,
+            "name": "Brad pitt",
+            "role": "driver",
+            "identityNumber": 1002,
+            "telp": "6285272869009",
+            "imageUrl": "https://via.placeholder.com/150"
+        },
+        "createdAt": "2023-01-10T09:15:24.980Z",
+        "updatedAt": "2023-01-10T09:17:37.012Z"
+    }
+]
+```
+### Story
+```json
+[
+    {
+        "id": 1,
         "vehicle": {
             "id": 2,
             "name": "Angkot B02",

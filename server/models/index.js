@@ -34,6 +34,7 @@ const AuthRequest = require("./request/AuthRequest")
 const AuthResponse = require("./response/AuthResponse")
 
 const HistoryRequest = require("./request/HistoryRequest")
+const StoryRequest = require("./request/StoryRequest")
 const UserRequest = require("./request/UserRequest")
 const VehicleRequest = require("./request/VehicleRequest")
 
@@ -46,6 +47,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.HistoryRequest = HistoryRequest;
+db.StoryRequest = StoryRequest;
 db.UserRequest = UserRequest;
 db.VehicleRequest = VehicleRequest;
 db.HistoryResponse = HistoryResponse;

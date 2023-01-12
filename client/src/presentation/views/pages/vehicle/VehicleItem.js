@@ -6,7 +6,7 @@ const Item = ({ vehicle }) => {
     const { account } = getAccountInfo()
     const { error } = useActionData() || {}
     const navigation = useNavigation()
-    
+
     return (<div className="col">
         <div className="card text-center">
             <div className="card-header">{vehicle.policeNumber}</div>
@@ -18,7 +18,6 @@ const Item = ({ vehicle }) => {
                     {account
                         ?.role === "driver"
                         ? <Form method="put">
-                            <input type="hidden" name="id" value={vehicle.id} />
                             <input type="hidden" name="status" value="onboarding" />
                             <button type="submit"
                                 disabled={

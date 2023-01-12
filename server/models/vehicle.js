@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Vehicle.hasOne(models.Story)
       Vehicle.hasMany(models.History)
     }
   }
