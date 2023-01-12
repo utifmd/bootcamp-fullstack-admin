@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { asDateTimeFormat } from "../helper"
+import { asDateTimeFormat } from "../../helper"
 
 const Item = ({ vehicle }) => {
     const [status, setStatus] = useState(vehicle.status === "onboarding")

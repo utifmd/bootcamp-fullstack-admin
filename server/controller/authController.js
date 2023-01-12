@@ -44,16 +44,24 @@ class Controller {
     static async update(req, resp) {
         try {
             const id = resp.locals.userId
-            const request = new AuthRequest(req.body)
-            console.log(`user update ${req.params.id}`)
-            const [state] = await User.update(request, { where: { id } })
-            let text = state === 1
-                ? `User with id ${id} has been changed`
-                : { message: `Couldn\'t change user with id ${id}` }
-            resp
-                .status(state === 1 ? 200 : 404)
-                .send(new Message(text))
+            const { currentPassword, password } = req.body
+            
+            const data = await User.findByPk(id)
+            if (!data) {
+                resp.status(404).send(new Message({ message: 'User not found.' }))
+                return
+            }
+            if (!isEncryptionMatches(currentPassword, data.password)) {
+                resp.status(403).send(new Message({ message: 'Invalid password.' }))
+                return
+            }
+            const token = tokenGenerator(data.id)
+            const [state] = await User.update({password},{ where:{ id } })
 
+            state === 1
+                ? resp.status(200).send(new AuthResponse(token))
+                : resp.status(403).send(new Message({message: `Couldn\'t change user with id ${id}`}))
+                
         } catch (error) {
             resp
                 .status(400)

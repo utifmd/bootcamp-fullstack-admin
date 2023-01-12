@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Driver, DriverEdit, DriverInfo, Error } from "../views/pages"
 import { AuthScope } from "../state"
-import { getDrivers, getDriver } from "../../domain"
+import { getDrivers, getDriver, putDriver } from "../../domain"
 
 const router = () => 
 <Route 
@@ -25,6 +25,7 @@ const router = () =>
     <Route 
         path="edit/:id"
         loader={getDriver}
+        action={putDriver}
         element={<DriverEdit/>} />
 </Route>
 

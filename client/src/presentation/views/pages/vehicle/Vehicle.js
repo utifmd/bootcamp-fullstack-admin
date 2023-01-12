@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { VehicleItem, SubNavbar } from "../../components"
+import { SubNavbar } from "../../components"
 import { useLoaderData } from "react-router-dom"
+import VehicleItem from "./VehicleItem"
 
 const Vehicles = () => {
     const vehicles = useLoaderData()

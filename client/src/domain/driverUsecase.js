@@ -1,3 +1,4 @@
+import { redirect } from "react-router-dom"
 const drivers = [
     {
         id: 1,
@@ -47,6 +48,16 @@ const drivers = [
         updatedAt: null
     }
 ]
+const validations = ({ name, telp, identityNumber, image }) => {
+    let error = {}
+    if (!name) error.name = "Name must not empty."
+    if (!telp) error.telp = "Telp must not empty."
+    if (!identityNumber) error.identityNumber = "Identity number number must not empty."
+    if (!image) error.image = "Image must not empty."
+    return {
+        error, isValid: !Object.entries(error).length
+    }
+}
 const getDrivers = async () => {
     return await new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -62,6 +73,25 @@ const getDriver = async ({ params }) => {
         }, 1000);
     })
 }
+const putDriver = async ({ request, params }) => {
+    const formData = await request.formData()
+    const fields = Object.fromEntries(formData)
+    const { error, isValid } = validations(fields)
+    if (isValid) {
+        try {
+            const path = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(`../info/${params.id}`)
+                }, 1000)
+            })
+            console.log(path)
+            return redirect(path)
+        } catch (error) {
+            return { error: { message: "attempting request" } }
+        }
+    }
+    return { error }
+}
 export {
-    getDrivers, getDriver
+    getDrivers, getDriver, putDriver
 }

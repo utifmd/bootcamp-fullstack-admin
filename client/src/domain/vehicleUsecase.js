@@ -1,3 +1,5 @@
+import { redirect } from "react-router-dom"
+
 const vehicles = [
     {
         "id": 1,
@@ -24,6 +26,18 @@ const vehicles = [
         ]
     }
 ]
+const validations = ({ name, route, policeNumber, vendor, passengerCapacity, image }) => {
+    let error = {}
+    if (!name) error.name = "Name must not empty."
+    if (!route) error.route = "Route must not empty."
+    if (!policeNumber) error.policeNumber = "Police number must not empty."
+    if (!vendor) error.vendor = "Vendor must not empty."
+    if (!passengerCapacity) error.passengerCapacity = "Passenger capacity must not empty."
+
+    return {
+        error, isValid: !Object.entries(error).length
+    }
+}
 const getVehicles = async () => {
     return await new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -39,6 +53,42 @@ const getVehicle = async ({ params }) => {
         }, 2000);
     })
 }
+const postVehicle = async ({ request }) => {
+    const formData = await request.formData()
+    const fields = Object.fromEntries(formData)
+    const { error, isValid } = validations(fields)
+    if (isValid) {
+        try {
+            const path = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(`../list`)
+                }, 1000)
+            })
+            return redirect(path)
+        } catch (error) {
+            return { error: { message: "attempting request" } }
+        }
+    }
+    return { error }
+}
+const putVehicle = async ({ request, params }) => {
+    const formData = await request.formData()
+    const fields = Object.fromEntries(formData)
+    const { error, isValid } = validations(fields)
+    if (isValid) {
+        try {
+            const path = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(`../info/${params.id}`)
+                }, 1000)
+            })
+            return redirect(path)
+        } catch (error) {
+            return { error: { message: "attempting request" } }
+        }
+    }
+    return { error }
+}
 export {
-    getVehicles, getVehicle
+    getVehicles, getVehicle, postVehicle, putVehicle
 }

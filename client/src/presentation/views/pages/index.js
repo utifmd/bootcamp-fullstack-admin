@@ -10,8 +10,9 @@ import VehicleInfo from "./vehicle/Info"
 import AuthEdit from "./auth/Edit"
 import DriverEdit from "./driver/Edit"
 import VehicleEdit from "./vehicle/Edit"
+import VehicleAdd from "./vehicle/Add"
 import { DashboardUser, DashboardGuest } from "./Dashboard"
 export {
     Error, Login, Register, Home, DashboardGuest, DashboardUser, Driver, Vehicle, DriverInfo, 
-    VehicleInfo, AuthEdit, VehicleEdit, DriverEdit, Feed
+    VehicleInfo, AuthEdit, VehicleEdit, VehicleAdd, DriverEdit, Feed
 }

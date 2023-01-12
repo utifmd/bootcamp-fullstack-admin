@@ -1,7 +1,9 @@
 import { Route } from "react-router-dom"
-import { DashboardUser, Vehicle, VehicleEdit, VehicleInfo, Error } from "../views/pages"
+import { 
+    DashboardUser, Vehicle, VehicleEdit, VehicleAdd, VehicleInfo, Error 
+} from "../views/pages"
 import { AuthScope } from "../state"
-import { getVehicle, getVehicles } from "../../domain"
+import { getVehicle, getVehicles, postVehicle, putVehicle } from "../../domain"
 
 const router = () => 
 <Route 
@@ -18,6 +20,11 @@ const router = () =>
         element={<Vehicle/>} />
 
     <Route 
+        path="add"
+        action={postVehicle}
+        element={<VehicleAdd/>} />
+
+    <Route 
         path="info/:id"
         loader={getVehicle}
         element={<VehicleInfo/>} />
@@ -25,6 +32,7 @@ const router = () =>
     <Route 
         path="edit/:id" 
         loader={getVehicle}
+        action={putVehicle}
         element={<VehicleEdit/>} />
 </Route>
 

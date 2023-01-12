@@ -5,7 +5,6 @@ import { AuthContext } from "./"
 const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState({ token: null, error: {}, loading: false })
     const navigate = useNavigate()
-    // const location = useLocation()
 
     const handleLogin = async (email, password) => {
         console.log("handleLogin trigger")

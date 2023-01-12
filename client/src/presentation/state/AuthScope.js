@@ -1,9 +1,8 @@
-import { Navigate } from "react-router-dom"
-import { useAuth } from "./"
+// import { Navigate } from "react-router-dom"
+// import { useAuth } from "./"
 
 const AuthScope = ({children}) => {
-    const { token } = useAuth()
-    console.log("AuthScope", token)
+    // const { token } = useAuth()
     
     // if(!token) {
     //     return <Navigate to="/" replace />

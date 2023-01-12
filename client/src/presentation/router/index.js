@@ -7,6 +7,7 @@ import vehicleRouter from "./vehicleRouter"
 import feedRouter from "./feedRouter"
 import { Home, Error } from "../views/pages"
 import { AuthProvider } from '../state'
+import { getAccessToken } from "../../domain"
 
 const router = createRoutesFromElements(
     <Route
@@ -14,7 +15,10 @@ const router = createRoutesFromElements(
         element={<AuthProvider><Outlet /></AuthProvider>}
         errorElement={<Error />}>
 
-        <Route index element={<Home />} />
+        <Route 
+            index 
+            loader={getAccessToken}
+            element={<Home />} />
         
         {authRoute()}
         {feedRouter()}

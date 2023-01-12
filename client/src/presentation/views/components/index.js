@@ -4,8 +4,7 @@ import Header from "./Header"
 import Banner from "./Banner"
 import Footer from "./Footer"
 import DriverItem from "./DriverItem"
-import VehicleItem from "./VehicleItem"
 import Loading from "./Loading"
 export {
-    NavBar, Header, Banner, Footer, DriverItem, VehicleItem, SubNavbar, Loading
+    NavBar, Header, Banner, Footer, DriverItem, SubNavbar, Loading
 }
