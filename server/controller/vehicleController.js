@@ -6,7 +6,7 @@ class Controller {
             const response = VehicleResponse.asList(data)
             resp.status(200).send(response)
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async readAllBy(req, resp) {
@@ -19,7 +19,7 @@ class Controller {
             const response = VehicleResponse.asList(data)
             resp.status(200).send(response)
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async read(req, resp) {
@@ -30,7 +30,7 @@ class Controller {
             const response = new VehicleResponse(data)
             resp.status(200).send(response)
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async create(req, resp) {
@@ -42,7 +42,7 @@ class Controller {
             const response = new VehicleResponse(data)
             resp.status(200).send(response)
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async delete(req, resp) {
@@ -56,7 +56,7 @@ class Controller {
                 : { message: `Couldn\'t delete category with id ${id}` }
             resp.status(state === 1? 200: 404).send(new Message(text))
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
     static async update(req, resp) {
@@ -72,7 +72,7 @@ class Controller {
             resp.status(state === 1? 200: 404).send(new Message(text))
             
         } catch (error) {
-            resp.status(500).send(new Message(error))
+            resp.status(400).send(new Message(error))
         }
     }
 }

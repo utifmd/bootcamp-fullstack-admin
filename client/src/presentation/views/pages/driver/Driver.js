@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
-import { DriverItem, SubNavbar } from "../../components"
+import { SubNavbar } from "../../components"
 import { backgroundStyle } from "../../helper"
+import DriverItem from "./DriverItem"
 
 const Driver = () => {
     const [regex, setRegex] = useState("")

@@ -61,5 +61,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Vehicle',
   });
+  Vehicle.addHook('beforeValidate', (vehicle, options) => {
+    vehicle.status = vehicle.status || "standby"
+    vehicle.imageUrl = vehicle.imageUrl || "https://via.placeholder.com/150" 
+  });
   return Vehicle;
 };

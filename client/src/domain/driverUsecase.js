@@ -10,7 +10,8 @@ const getDrivers = async () => {
         }
         return { drivers: drivers.data }
     } catch (error) {
-        return { error }
+        const message = error.response.data.error
+        return { error: { message } }
     }
 }
 const getDriver = async ({ params }) => {
@@ -21,7 +22,8 @@ const getDriver = async ({ params }) => {
         }
         return { driver: driver.data }
     } catch (error) {
-        return { error }
+        const message = error.response.data.error
+        return { error: { message } }
     }
 }
 const putDriver = async ({ request, params }) => {

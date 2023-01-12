@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom"
 import {
-    Login, Register, AuthEdit, Error, DashboardGuest, DriverEdit
+    Login, Register, AuthEdit, AuthChange, Error, DashboardGuest
 } from "../views/pages"
 import {
     changePassword, signUp, signIn, checkAccessToken, getAuth, putAuth, 
@@ -29,13 +29,13 @@ const Router = () => <Route
     <Route
         path="change"
         action={changePassword}
-        element={<AuthScope><AuthEdit /></AuthScope>} />
+        element={<AuthScope><AuthChange /></AuthScope>} />
 
     <Route
         path="edit"
         loader={getAuth}
         action={putAuth}
-        element={<AuthScope><DriverEdit/></AuthScope>} />
+        element={<AuthScope><AuthEdit/></AuthScope>} />
 
 </Route>
 

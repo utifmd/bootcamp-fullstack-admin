@@ -1,11 +1,11 @@
-import { Link, useLoaderData } from "react-router-dom"
+import { Form, Link, useLoaderData } from "react-router-dom"
 import { getAccountInfo } from "../../../../domain"
 
 import InfoListVIew from "./InfoListView"
 import InfoTable from "./InfoTable"
 
 const Info = () => {
-    const {vehicle, error} = useLoaderData()
+    const { vehicle, error } = useLoaderData()
     const { account } = getAccountInfo()
 
     return (<div className="bg-light">
@@ -13,7 +13,7 @@ const Info = () => {
             <div className="lead mt-5">Vehicle information</div>
             {error &&
                 <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
-                
+
             {vehicle && <div className="row justify-content-evenly align-items-center my-3">
                 <div className="col-md-3">
                     <img src={vehicle?.imageUrl} width="100%" className="img-thumbnail" alt="user" />
@@ -23,11 +23,13 @@ const Info = () => {
                     {account
                         ?.role === "admin"
                         ? <div className="row pt-4 px-5">
-                            <div className="col"><Link
-                                className="btn btn-outline-danger btn-rounded w-100"
-                                to={`../remove/${vehicle?.id}`}
-                                data-ripple-color="dark">Remove vehicle</Link></div>
-
+                            <div className="col">
+                                <Form>
+                                    <button type="submit"
+                                        className="btn btn-outline-danger btn-rounded w-100"
+                                        data-ripple-color="dark">Remove vehicle</button>
+                                </Form>
+                            </div>
                             <div className="col"><Link
                                 className="btn btn-outline-dark btn-rounded w-100"
                                 to={`../edit/${vehicle?.id}`}

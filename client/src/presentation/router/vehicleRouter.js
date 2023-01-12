@@ -3,7 +3,8 @@ import {
     DashboardUser, Vehicle, VehicleEdit, VehicleAdd, VehicleInfo, Error 
 } from "../views/pages"
 import { 
-    getVehicle, getVehicles, postVehicle, putVehicle 
+    deleteVehicle,
+    getVehicle, getVehicles, postVehicle, putVehicle, putVehicleStatus
 } from "../../domain"
 import { AuthScope, AdminScope } from "../state"
 
@@ -19,6 +20,7 @@ const router = () =>
     <Route 
         path="list"
         loader={getVehicles}
+        action={putVehicleStatus}
         element={<AuthScope><Vehicle/></AuthScope>} />
 
     <Route 
@@ -29,6 +31,7 @@ const router = () =>
     <Route 
         path="info/:id"
         loader={getVehicle}
+        action={deleteVehicle}
         element={<AuthScope><VehicleInfo/></AuthScope>} />
 
     <Route 

@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom"
-import { 
-    signInValidations, signUpValidations, changerValidations, driverValidations 
+import {
+    signInValidations, signUpValidations, changerValidations, driverValidations
 } from "../presentation/views/helper"
 import { Service } from "../data"
 
@@ -8,35 +8,28 @@ const signUp = async ({ request }) => {
     const formData = await request.formData()
     const fields = Object.fromEntries(formData)
     const { error, isValid } = signUpValidations(fields)
-
+    console.log("signup")
     if (isValid) {
         try {
-            const token = await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve({
-                        access_token: `eyJhbGciOiJIUzI1NiJ9.MQ.NdoybHTM5-q5sE7XOYgDW-zDTHbFiMmiFQxbiM3Qgss`
-                    })
-                }, 1000)
-            })
-            const account = await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve({
-                        name: "Brad pitt",
-                        imageUrl: "https://via.placeholder.com/150"
-                    })
-                }, 1000)
-            })
-            postAccountInfo(token, account)
+            const authResponse = await Service.authSignUp(fields)
+            const { access_token } = authResponse.data
+            console.log(access_token)
+            const accountResponse = await Service.getAuth(access_token)
+            const account = accountResponse.data
+            console.log(account)
+            
+            postAccountInfo(access_token, account)
             return redirect(`/feeds`)
         } catch (error) {
-            return { error: { message: "an error occurred." } }
+            return { error }
         }
     }
     return { error }
 }
-const getAuth = async ({ params }) => {
+const getAuth = async () => {
     try {
-        const auth = await Service.getAuth(params.id)
+        const { access_token } = getAccountInfo()
+        const auth = await Service.getAuth(access_token)
         if (!auth.data) {
             return { error: { message: "There was an error occurred." } }
         }
@@ -50,11 +43,13 @@ const putAuth = async ({ request, params }) => {
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
         const { error, isValid } = driverValidations(fields)
-        
         if (isValid) {
-            await Service.putAuth(fields)
-
-            return redirect(`../info/${params.id}`)
+            const { access_token } = getAccountInfo()
+            const response = await Service.putAuth(access_token, fields)
+            const account = response.data
+            
+            postAccountInfo(access_token, account)
+            return redirect(`/`) // return redirect(`../../driver/info/${account.id}`)
         }
         return { error }
     } catch (error) {
@@ -68,56 +63,40 @@ const signIn = async ({ request }) => {
 
     if (isValid) {
         try {
-            const token = await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    if(fields.email === "u@m.com" && fields.password === "12") 
-                        resolve(`eyJhbGciOiJIUzI1NiJ9.MQ.NdoybHTM5-q5sE7XOYgDW-zDTHbFiMmiFQxbiM3Qgss`)
-                    else
-                        reject("{message: }")
-                }, 1000)
-            })
-            const account = await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve({
-                        name: "Brad pitt",
-                        role: "driver",
-                        imageUrl: "https://via.placeholder.com/150"
-                    })
-                }, 1000)
-            })
-            postAccountInfo(token, account)
+            const authResponse = await Service.authSignIn(fields)
+            const { access_token } = authResponse.data
+            const accountResponse = await Service.getAuth(access_token)
+            const account = accountResponse.data
+            
+            postAccountInfo(access_token, account)
             return redirect(`/feeds`)
         } catch (error) {
-            return { error: { message: `There was an error loading your account.` } }
+            const message = error.response.data.error
+            return { error: { message } }
         }
     }
     return { error }
 }
 const signOut = async () => {
     try {
-        const path = await new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(`/`)
-            }, 1000)
-        })
         localStorage.clear()
-        return redirect(path)
+        return redirect(`/`)
     } catch (error) {
-        console.log(error)
-        return { error: { message: "an error occurred." } }
+        const message = error.response.data.error
+        return { error: { message } }
     }
 }
 const changePassword = async ({ request }) => {
     try {
-        if(!localStorage.getItem("access_token")) return redirect(`/`)
-        
+        if (!localStorage.getItem("access_token")) return redirect(`/`)
+
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
         const { error, isValid } = changerValidations(fields)
-    
+
         if (!isValid) return { error }
         return redirect(`/`)
-        
+
     } catch (error) {
         return error
     }
