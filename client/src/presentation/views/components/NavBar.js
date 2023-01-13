@@ -16,7 +16,7 @@ const NavBar = () => {
     }
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-white">
+            <nav className="navbar navbar-expand-lg navbar-light bg-white"> {/*fix-top*/}
                 <div className="container-fluid justify-content-between">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -45,11 +45,11 @@ const NavBar = () => {
                                 <img
                                     src={account?.imageUrl}
                                     className="rounded-circle"
-                                    height="25"
+                                    style={{width:`25px`, height:`25px`, objectFit: `cover`}}
                                     alt="Black and White Portrait of a Man"
                                     loading="lazy"
                                 />
-                                <strong className="d-none d-sm-block ms-1 text-dark">{account?.name}</strong>
+                                <strong className="d-none d-sm-block ms-1 text-dark">{account?.name !== 'null' ? account?.name : account.role}</strong>
                             </Link>
                             <ul
                                 className="dropdown-menu dropdown-menu-end"
@@ -62,7 +62,7 @@ const NavBar = () => {
                                     <Link className="dropdown-item" to="/auth/change">Change password</Link>
                                 </li>
                                 <li>
-                                    <div onClick={onLogout} className="dropdown-item">Logout</div>
+                                    <div onClick={onLogout} className="dropdown-item pe-auto">Logout</div>
                                 </li>
                             </ul>
                         </div>

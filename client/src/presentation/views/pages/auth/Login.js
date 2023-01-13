@@ -39,13 +39,11 @@ const Register = () => {
                         ?.length
                         ? <small className="text-danger">* {error.password}</small>
                         : null}
-
                     {error
                         ?.message
                         ?.length
                         ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
                         : null}
-
                     <button
                         disabled={navigation.state === "loading" || navigation.state === "submitting"}
                         className="w-100 btn btn-lg btn-primary mt-3"

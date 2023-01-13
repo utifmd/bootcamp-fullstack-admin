@@ -11,31 +11,38 @@ const asPhoneFormat = (num) => {
 }
 const asDateFormat = (str) => {
     try {
-        const simpleDate = new Date(str)
+        let intermediate = str.split("T"),
+            newStr = intermediate[0].split("-").join("/") + " " + intermediate[1].split(".")[0] + " GMT",
+            newDate = new Date(newStr)
+
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let i = simpleDate.getMonth() - 1
-        return `${simpleDate.getDay()} ${months[i]} ${simpleDate.getFullYear()}`
+        let i = newDate.getUTCMonth()
+        return `${newDate.getUTCDate()} ${months[i]} ${newDate.getFullYear()}`
     } catch (error) {
         return str
     }
 }
 const asDateTimeFormat = (str) => {
     try {
-        const simpleDate = new Date(str)
+        let intermediate = str.split("T"),
+            newStr = intermediate[0].split("-").join("/") + " " + intermediate[1].split(".")[0] + " GMT",
+            newDate = new Date(newStr)
+
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let i = simpleDate.getMonth() - 1
-        return `${simpleDate.getDay()} ${months[i]} ${simpleDate.getFullYear()}, ${simpleDate.getHours()}:${simpleDate.getMinutes()}`
+        let i = newDate.getUTCMonth()
+        return `${newDate.getUTCDate()} ${months[i]} ${newDate.getFullYear()}, ${newDate.getHours()}:${newDate.getMinutes()}`
     } catch (error) {
         console.log(error)
         return str
     }
 }
 const asCapitalize = (str) => str
-    ?. charAt(0)
-    ?. toUpperCase()
-    ?. concat(str.slice(1)) 
+    ?.charAt(0)
+    ?.toUpperCase()
+    ?.concat(str.slice(1))
     || str
-const asIdr = (num) => "IDR ".concat(num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")) || num
+
+const asIdr = (num) => "IDR ".concat((num || 0)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, "."))
 
 const backgroundStyle = {
     minHeight: "100vh",
@@ -97,6 +104,6 @@ const vehicleValidations = ({ name, route, policeNumber, vendor, passengerCapaci
     }
 }
 export {
-    asPhoneFormat, asDateFormat, asDateTimeFormat, asCapitalize, asIdr, backgroundStyle, 
+    asPhoneFormat, asDateFormat, asDateTimeFormat, asCapitalize, asIdr, backgroundStyle,
     signInValidations, signUpValidations, driverValidations, changerValidations, vehicleValidations
 }

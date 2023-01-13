@@ -1,5 +1,5 @@
 import { Form, useActionData, useNavigation } from "react-router-dom"
-const VehicleForm = ({ vehicle, isEdit }) => {
+const VehicleForm = ({ vehicle, isEdit, errorLoader }) => {
     const { error } = useActionData() || {}
     const navigation = useNavigation()
     return (<div className="container">
@@ -98,12 +98,16 @@ const VehicleForm = ({ vehicle, isEdit }) => {
                 <label className="form-label" htmlFor="image">Photo</label>
                 <input name="image" type="file" className="form-control form-control-lg" id="image" />
             </div>
-            {error
+            {errorLoader
                 ?.message
                 ?.length
                 ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
                 : null}
-                
+            {error
+                ?.message
+                ?.length
+                ? <div className="alert alert-danger mt-2" role="alert"> {error?.message} </div>
+                : null}
             <button disabled={navigation.state === "submitting" || navigation.state === "loading"} className="btn btn-lg btn-primary mt-3" type="submit">Save</button>
             <hr className="my-4" />
             <small className="text-muted">© 2023-{new Date().getFullYear()}</small>

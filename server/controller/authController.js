@@ -89,6 +89,7 @@ class Controller {
         try {
             const id = resp.locals.userId
             const request = new UserRequest(req.body)
+            console.log(JSON.stringify(request, null, 2))
             const [state] = await User.update(request, { where: { id } })
             if (state !== 1) {
                 resp.status(403).send(new Message({ message: `Couldn\'t change user with id ${id}` }))

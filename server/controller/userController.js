@@ -2,7 +2,27 @@ const { User, History, UserRequest, UserResponse, Message, Sequelize } = require
 class Controller {
     static async readAll(req, resp) {
         try {
-            const data = await User.findAll()
+            const data = await User.findAll({order: [['createdAt', 'DESC']]})
+            const response = UserResponse.asList(data)
+            resp.status(200).send(response)
+        } catch (error) {
+            resp.status(400).send(new Message(error))
+        }
+    }
+    static async readAllExceptAdmin(req, resp) {
+        try {
+            const data = await User.findAll(
+                {
+                    where: {
+                        role: {
+                            [Sequelize.Op.ne]: 'admin'
+                        }
+                    }, 
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+                }
+            )
             const response = UserResponse.asList(data)
             resp.status(200).send(response)
         } catch (error) {
@@ -31,7 +51,7 @@ class Controller {
                 ? new UserResponse(data)
                 : new Message({ message: `User with id ${id} does\'nt exist` })
             resp
-                .status(data ? 200 : 404)
+                .status(data ? 200 : 403)
                 .send(response)
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -46,7 +66,7 @@ class Controller {
                 ? new UserResponse(data)
                 : new Message({ message: `User with id ${id} does\'nt exist` })
             resp
-                .status(data ? 200 : 404)
+                .status(data ? 200 : 403)
                 .send(response)
         } catch (error) {
             resp.status(400).send(new Message(error))
@@ -54,8 +74,8 @@ class Controller {
     }
     static async delete(req, resp) {
         try {
-            const { id } = req.params// resp.locals.userId
-            resp.json(`"user delete" ${id}`)
+            const { id } = req.params // resp.locals.userId
+            console.log(`user delete ${id}`)
             const state = await User.destroy({ where: { id } })
             let text = state === 1
                 ? `User with id ${id} has been deleted`
@@ -69,12 +89,12 @@ class Controller {
     }
     static async update(req, resp) {
         try {
-            const id = resp.locals.userId
+            const { targetUserId } = req.params
             const request = new UserRequest(req.body)
-            const [state] = await User.update(request, { where: { id } })
+            const [state] = await User.update(request, { where: { id: targetUserId } })
             let text = state === 1
-                ? `User with id ${id} has been updated`
-                : { message: `Couldn\'t update user with id ${id}` }
+                ? `User with targetUserId ${targetUserId} has been updated`
+                : { message: `Couldn\'t update user with targetUserId ${targetUserId}` }
             resp
                 .status(state === 1 ? 200 : 404)
                 .send(new Message(text))

@@ -4,11 +4,11 @@ import {
 import { 
     getVehicles, getVehicle, postVehicle, putVehicle, deleteVehicle, putVehicleStatus 
 } from "./vehicleUsecase"
-import { getDrivers, getDriver, putDriver } from "./driverUsecase"
-import { getFeeds } from "./feedUsecase"
+import { getDrivers, getDriver, putDriver, driverInfoAction } from "./driverUsecase"
+import { getFeeds, putHistory } from "./feedUsecase"
 export {
     getVehicles, getVehicle, getDrivers, getDriver, getFeeds, 
     postVehicle, putVehicle, deleteVehicle, putDriver, signIn, 
     signUp, checkAccessToken, changePassword, getAccountInfo, 
-    signOut, getAuth, putAuth, putVehicleStatus
+    signOut, getAuth, putAuth, putVehicleStatus, putHistory, driverInfoAction
 }

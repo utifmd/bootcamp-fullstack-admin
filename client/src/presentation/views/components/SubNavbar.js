@@ -1,13 +1,9 @@
-const SubNavbar = ({ sortToggle, setSortToggle, onSearchValueChange }) => {    
+import { Link } from "react-router-dom"
+
+const SubNavbar = ({ sortToggle, setSortToggle, isBtnNewVehicle, onSearchValueChange }) => {
     return (<>
         <div className="d-flex align-items-center">
-            {setSortToggle ? <i
-                className={`fa-solid ${sortToggle
-                    ? "fa-arrow-down-wide-short"
-                    : "fa-arrow-up-wide-short"}`}
-                onClick={() => setSortToggle(!sortToggle)} />
-                : null}
-            {onSearchValueChange ? <div className="d-flex mx-2">
+            {onSearchValueChange ? <div className="d-flex">
                 <form className="d-flex input-group w-auto">
                     <span className="input-group-text border-0" id="search-addon"><i className="fas fa-search"></i></span>
                     <input
@@ -20,6 +16,15 @@ const SubNavbar = ({ sortToggle, setSortToggle, onSearchValueChange }) => {
                     />
                 </form>
             </div> : null}
+            {setSortToggle ? <i
+                className={`fa-solid ${sortToggle
+                    ? "fa-arrow-down-wide-short"
+                    : "fa-arrow-up-wide-short"}`}
+                onClick={() => setSortToggle(!sortToggle)} />
+                : null}
+            {isBtnNewVehicle
+                ? <Link to="../add" className="input-group-text border-0"><i className="fa-solid fa-square-plus" /></Link>
+                : null}
         </div>
     </>)
 }

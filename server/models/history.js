@@ -55,5 +55,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'History',
   });
+  History.addHook('beforeValidate', (history, options) => {
+    history.fuel = history.fuel || 300000
+  });
   return History;
 };

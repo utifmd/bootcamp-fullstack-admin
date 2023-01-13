@@ -17,25 +17,26 @@ class Service {
     static authSignUp = (fields) => this.instance()
         .post("auth/register/", fields)
 
-    static authChangePassword = () => this.instance()
-        .get(`auth/change/`)
+    static authChangePassword = (token, fields) => this.instance(token)
+        .put(`auth/change/`, fields)
 
     static getAuth = (token) => this.instance(token)
         .get(`auth/`)
 
-    static putAuth = (token, fields) => 
-        this.instance(token, fields?.image)
+    static putAuth = (token, fields, contentType) => this
+        .instance(token, contentType)
         .put(`auth/edit`, fields)
 
 
     static getFeeds = () => this.instance()
         .get("histories/")
 
-    static addFeeds = () => this.instance()
-        .get("histories/add")
+    static postFeeds = (token, fields) => this
+        .instance(token)
+        .post("histories/add", fields)
 
-    static putFeeds = (id) => this.instance()
-        .get(`histories/update/${id}`)
+    static putFeeds = (token, id, fields) => this.instance(token)
+        .put(`histories/update/${id}`, fields)
 
 
     static getVehicles = () => this.instance()
@@ -56,7 +57,7 @@ class Service {
     static putVehicleStatus = (token, id, fields) => this.instance(token)
         .put(`vehicles/update/${id}`, fields)
 
-    static deleteVehicle = (id) => this.instance()
+    static deleteVehicle = (token, id) => this.instance(token)
         .delete(`vehicles/remove/${id}`)
 
 
@@ -66,14 +67,31 @@ class Service {
     static searchDrivers = (query) => this.instance()
         .get(`users/search/${query}`)
 
-    static getDriver = (id) => this.instance()
+    static getDriver = (token, id) => this.instance(token)
         .get(`users/${id}`)
 
     static putDriver = (token, id, fields, contentType) => this.instance(token, contentType)
         .put(`users/update/${id}`, fields)
 
-    static deleteDriver = (id) => this.instance()
-        .get(`users/remove/${id}`)
+    static deleteDriver = (token, id) => this.instance(token)
+        .delete(`users/remove/${id}`)
+
+        
+    static checkSpaceStories = (token) => this
+        .instance(token)
+        .get("stories/checkSpace")
+
+    static postStory = (token, fields) => this
+        .instance(token)
+        .post("stories/add", fields)
+
+    static destroyStories = (token) => this
+        .instance(token)
+        .delete("stories/destroy")
+
+    static removeStory = (token, id) => this
+        .instance(token)
+        .delete(`stories/remove/${id}`)
 
 }
 export default Service

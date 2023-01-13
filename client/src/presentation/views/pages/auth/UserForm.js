@@ -1,12 +1,14 @@
+import { useState } from "react"
 import { Form, useActionData, useNavigation } from "react-router-dom"
 const UserForm = ({ user, loaderErrorMessage }) => {
     const navigation = useNavigation()
+    // const [toggleImage, setToggleImage] = useState(false)
     const { error } = useActionData() || {}
-    
+
     return (<>
         <div className="container">
             <Form className="p-4 p-md-5" method="put" encType="multipart/form-data">
-                <div className="lead mb-3">Please complete your info {user.name}</div>
+                <div className="lead mb-3">Please complete your info</div>
                 <div className="row">
                     <div className="col-md-4">
                         <div className="form-floating">
@@ -61,13 +63,23 @@ const UserForm = ({ user, loaderErrorMessage }) => {
                     </div>
                 </div>
                 <div className="mt-3">
-                    <label class="form-label" for="image">Pas foto</label>
-                    <input name="image" type="file" class="form-control form-control-lg" id="image" />
+                    <label className="form-label" htmlFor="image">Pas foto</label>
+                    <input 
+                        name="image" 
+                        type="file"
+                        className="form-control form-control-lg" id="image" />
                 </div>
+                
                 {loaderErrorMessage
                     ?.length
-                    ? <div class="alert alert-danger mt-2" role="alert"> {loaderErrorMessage} </div>
+                    ? <div className="alert alert-danger mt-2" role="alert"> {loaderErrorMessage} </div>
                     : null}
+                {error
+                    ?.message
+                    ?.length
+                    ? <div className="alert alert-danger mt-2" role="alert"> {error?.message} </div>
+                    : null}
+
                 <button
                     className="btn btn-lg btn-primary mt-3"
                     disabled={navigation.state === "loading" || navigation.state === "submitting"}

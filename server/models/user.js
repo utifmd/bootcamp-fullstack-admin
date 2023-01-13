@@ -26,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isIn: {
-          args: [["driver", "admin"]],
-          msg: "Must be onboarding or standby"
+          args: [["driver", "admin", "guest"]],
+          msg: "Must be driver or driver"
         }
       }
     },
@@ -79,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.addHook('beforeValidate', (user, options) => {
     if (user.password) user.password = encrypt(user.password)
-    user.role = user.role || "driver"
+    user.role = user.role || "guest"
     user.imageUrl = user.imageUrl || "https://via.placeholder.com/150" 
   });
   return User;

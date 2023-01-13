@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom"
-import { DashboardUser, Feed } from "../views/pages"
+import { DashboardUser, Feed, FeedEdit } from "../views/pages"
 import { AuthScope } from "../state"
-import { getFeeds } from "../../domain"
+import { getFeeds, putHistory } from "../../domain"
 
 const Router = () => <Route
     path="feeds"
@@ -11,6 +11,11 @@ const Router = () => <Route
         index
         loader={getFeeds}
         element={<Feed/>}/>
+
+    <Route
+        path="edit/:id/:vehicleId/:userId"
+        action={putHistory}
+        element={<FeedEdit/>}/>
 </Route>
 
 export default Router

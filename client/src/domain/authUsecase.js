@@ -21,7 +21,8 @@ const signUp = async ({ request }) => {
             postAccountInfo(access_token, account)
             return redirect(`/feeds`)
         } catch (error) {
-            return { error }
+            const message = error.response.data.error
+            return { error: { message } }
         }
     }
     return { error }
@@ -43,17 +44,21 @@ const putAuth = async ({ request, params }) => {
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
         const { error, isValid } = driverValidations(fields)
+
         if (isValid) {
             const { access_token } = getAccountInfo()
-            const response = await Service.putAuth(access_token, fields)
+            const response = await Service.putAuth(
+                access_token, fields, `multipart/form-data`
+            )
             const account = response.data
             
             postAccountInfo(access_token, account)
-            return redirect(`/`) // return redirect(`../../driver/info/${account.id}`)
+            return redirect(`../../driver/info/${account.id}`)
         }
         return { error }
     } catch (error) {
-        return { error }
+        const message = error.response.data.error
+        return { error: { message } }
     }
 }
 const signIn = async ({ request }) => {
@@ -88,17 +93,21 @@ const signOut = async () => {
 }
 const changePassword = async ({ request }) => {
     try {
-        if (!localStorage.getItem("access_token")) return redirect(`/`)
-
+        const { access_token } = getAccountInfo()
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
         const { error, isValid } = changerValidations(fields)
 
         if (!isValid) return { error }
+        const response = await Service.authChangePassword(access_token, fields)
+        const newToken = response.data
+        console.log('newToken ',newToken)
+        postAccountInfo(newToken)
         return redirect(`/`)
 
     } catch (error) {
-        return error
+        const message = error.response.data.error
+        return { error: { message } }
     }
 }
 const checkAccessToken = async () => {
@@ -125,6 +134,7 @@ const getAccountInfo = () => {
 }
 const postAccountInfo = (token, account) => {
     localStorage.setItem("access_token", token)
+    if(!account) return
     localStorage.setItem("name", account.name)
     localStorage.setItem("imageUrl", account.imageUrl)
     localStorage.setItem("role", account.role)

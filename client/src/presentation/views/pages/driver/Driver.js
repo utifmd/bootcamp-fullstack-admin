@@ -17,8 +17,8 @@ const Driver = () => {
     return (<div className="bg-image" style={backgroundStyle}>
         <div className="container py-5">
             <SubNavbar
-                sortToggle={sortToggle}
-                setSortToggle={setSortToggle}
+                // sortToggle={sortToggle}
+                // setSortToggle={setSortToggle}
                 onSearchValueChange={onSearchValueChange} />
             {error &&
                 <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
@@ -26,11 +26,11 @@ const Driver = () => {
             <div className="container pt-4 g-2">
                 <div class="row row-cols-1 row-cols-md-2">
                     {drivers
-                        ?.sort((a, b) => sortToggle
-                            ? a.createdAt - b.createdAt
-                            : b.createdAt - a.createdAt)
-                        ?.filter(({ name, email }) => name?.includes(regex) || email?.includes(regex))
-                        ?.map(driver => <DriverItem driver={driver} />)
+                        .sort((a, b) => sortToggle
+                            ? a?.name - b?.name
+                            : b?.name - a?.name)
+                        .filter(({ name, email }) => name?.includes(regex) || email?.includes(regex))
+                        .map(driver => <DriverItem driver={driver} />)
                     }
                 </div>
             </div>

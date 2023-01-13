@@ -32,6 +32,7 @@ const postVehicle = async ({ request }) => {
         const fields = Object.fromEntries(formData)
         const { error, isValid } = vehicleValidations(fields)
 
+        console.log(JSON.stringify(fields, null, 2))
         if (isValid) {
             await Service.postVehicle(access_token, fields, `multipart/form-data`)
 
@@ -45,13 +46,14 @@ const postVehicle = async ({ request }) => {
 }
 const deleteVehicle = async ({ params }) => {
     try {
-        console.log("delete vehicle")
-        const response = await Service.deleteVehicle(params.id)
-        console.log("token ", response.headers.get("access_token"))
+        const { access_token } = getAccountInfo()
+
+        console.log(`"delete vehicle" ${params.id}`)
+        const response = await Service.deleteVehicle(access_token, params.id)
         if (!response.data) {
             return { error: { message: "There was an error occurred." } }
         }
-        return redirect("../list")
+        return redirect(`../list`)
     } catch (error) {
         const message = error.response.data.error
         return { error: { message } }
@@ -65,8 +67,9 @@ const putVehicle = async ({ request, params }) => {
         const { error, isValid } = vehicleValidations(fields)
 
         if (isValid) {
-            await Service.putVehicle(access_token, params.id, fields, `multipart/form-data`)
-
+            await Service.putVehicle(
+                access_token, params.id, fields, `multipart/form-data`
+            )
             return redirect(`../info/${params.id}`)
         }
         return { error }
@@ -81,12 +84,14 @@ const putVehicleStatus = async ({ request }) => {
         const formData = await request.formData()
         const {id, status} = Object.fromEntries(formData)
         
+        await Service.checkSpaceStories(access_token)
         await Service.putVehicleStatus(access_token, id, {status})
-        // TODO: add table ongoing
+        await Service.postStory(access_token, {vehicleId: id})
+        await Service.postFeeds(access_token, {vehicleId: id})
 
         return redirect(`../list`)
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data.error || `You have taken another car.`
         return { error: { message } }
     }
 }

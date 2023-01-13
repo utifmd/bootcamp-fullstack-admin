@@ -28,14 +28,14 @@ class Controller {
     static async delete(req, resp) {
         try {
             console.log("history delete")
-            const { id } = req.params
+            const targetUserId = req.params.userId
 
-            const state = await Story.destroy({ where: { id } })
+            const state = await Story.destroy({ where: { UserId: targetUserId } })
             let text = state === 1
-                ? `Story with id ${id} has been deleted`
-                : { message: `Couldn\'t delete story with id ${id}` }
+                ? `Story with userId ${targetUserId} has been deleted`
+                : { message: `Couldn\'t delete story with targetUserId ${targetUserId}` }
 
-            resp.status(200).send(new Message(text))
+            resp.status(state === 1? 200: 403).send(new Message(text))
         } catch (error) {
             resp.status(400).send(new Message(error))
         }

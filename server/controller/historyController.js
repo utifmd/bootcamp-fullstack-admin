@@ -2,7 +2,10 @@ const { History, Vehicle, User, HistoryRequest, HistoryResponse, Message } = req
 class Controller {
     static async readAll(req, resp) {
         try {
-            const data = await History.findAll({include: [Vehicle, User]})
+            const data = await History.findAll({
+                include: [Vehicle, User],
+                order: [['createdAt', 'DESC']]
+            })
             const response = HistoryResponse.asList(data)
             resp.status(200).send(response)
         } catch (error) {

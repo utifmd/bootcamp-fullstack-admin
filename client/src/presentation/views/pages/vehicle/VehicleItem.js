@@ -10,14 +10,15 @@ const Item = ({ vehicle }) => {
     return (<div className="col">
         <div className="card text-center">
             <div className="card-header">{vehicle.policeNumber}</div>
-            <img src={vehicle.imageUrl} className="img-fluid" alt={vehicle.name} />
+            <img src={vehicle.imageUrl} className="img-fluid" style={{height: `250px`, objectFit: `cover`}} alt={vehicle.name} />
             <div className="card-body">
                 <h5 className="card-title">{vehicle.name}</h5>
                 <p className="card-text">{vehicle.route}</p>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 justify-content-center">
                     {account
                         ?.role === "driver"
                         ? <Form method="put">
+                            <input type="hidden" name="id" value={vehicle.id} />
                             <input type="hidden" name="status" value="onboarding" />
                             <button type="submit"
                                 disabled={
@@ -33,11 +34,13 @@ const Item = ({ vehicle }) => {
                     }
                     <Link to={`../info/${vehicle.id}`} className="btn btn-info">preview</Link>
                 </div>
-                {error
-                    ?.message
-                    ?.length
-                    ? <small class="text-danger my-2" role="alert">{error.message}</small>
-                    : null}
+                <div className="pt-3">
+                    {error
+                        ?.message
+                        ?.length
+                        ? <small class="text-danger" role="alert">{error.message}</small>
+                        : null}
+                </div>
             </div>
             <div className="card-footer text-muted">Last used at {asDateTimeFormat(vehicle.updatedAt)}</div>
         </div>
