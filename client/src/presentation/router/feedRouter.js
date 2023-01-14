@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom"
 import { DashboardUser, Feed, FeedEdit } from "../views/pages"
 import { AuthScope } from "../state"
-import { getFeeds, putHistory } from "../../domain"
+import { getFeeds, rangeFeeds, putHistory } from "../../domain"
 
 const Router = () => <Route
     path="feeds"
@@ -10,6 +10,7 @@ const Router = () => <Route
     <Route
         index
         loader={getFeeds}
+        action={rangeFeeds}
         element={<Feed/>}/>
 
     <Route

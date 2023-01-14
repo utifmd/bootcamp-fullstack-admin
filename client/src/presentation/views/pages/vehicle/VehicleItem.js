@@ -1,11 +1,9 @@
-import { Form, Link, useActionData, useNavigation } from "react-router-dom"
+import { Form, Link } from "react-router-dom"
 import { asDateTimeFormat } from "../../helper"
 import { getAccountInfo } from "../../../../domain"
 
-const Item = ({ vehicle }) => {
+const Item = ({ vehicle, actionData, navigation }) => {
     const { account } = getAccountInfo()
-    const { error } = useActionData() || {}
-    const navigation = useNavigation()
 
     return (<div className="col">
         <div className="card text-center">
@@ -35,10 +33,11 @@ const Item = ({ vehicle }) => {
                     <Link to={`../info/${vehicle.id}`} className="btn btn-info">preview</Link>
                 </div>
                 <div className="pt-3">
-                    {error
+                    {actionData
+                        ?.error
                         ?.message
                         ?.length
-                        ? <small class="text-danger" role="alert">{error.message}</small>
+                        ? <small class="text-danger" role="alert">{actionData.error.message}</small>
                         : null}
                 </div>
             </div>

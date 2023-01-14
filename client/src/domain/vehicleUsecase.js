@@ -82,12 +82,12 @@ const putVehicleStatus = async ({ request }) => {
     try {
         const { access_token } = getAccountInfo()
         const formData = await request.formData()
-        const {id, status} = Object.fromEntries(formData)
-        
+        const { id, status } = Object.fromEntries(formData)
+
         await Service.checkSpaceStories(access_token)
-        await Service.putVehicleStatus(access_token, id, {status})
-        await Service.postStory(access_token, {vehicleId: id})
-        await Service.postFeeds(access_token, {vehicleId: id})
+        await Service.putVehicleStatus(access_token, id, { status })
+        await Service.postStory(access_token, { vehicleId: id })
+        await Service.postFeeds(access_token, { vehicleId: id })
 
         return redirect(`../list`)
     } catch (error) {
@@ -95,6 +95,31 @@ const putVehicleStatus = async ({ request }) => {
         return { error: { message } }
     }
 }
+const searchVehicle = async ({ request }) => {
+    try {
+        const formData = await request.formData()
+        const { query } = Object.fromEntries(formData)
+        const vehicles = await Service.searchVehicles(query)
+        if (!vehicles.data) {
+            return { error: { message: "There was an error occurred." } }
+        }
+        console.log(vehicles.data)
+        return { vehicles: vehicles.data }
+    } catch (error) {
+        return { error }
+    }
+}
+const vehicleListAction = async ({ request }) => {
+    switch (request.method) {
+        case 'POST':
+            return await searchVehicle({ request })
+        case 'PUT':
+            return await putVehicleStatus({ request })
+        default:
+            return { error: { message: `Unknown action` } }
+    }
+}
 export {
-    getVehicles, getVehicle, postVehicle, putVehicle, deleteVehicle, putVehicleStatus
+    getVehicles, getVehicle, postVehicle,
+    putVehicle, deleteVehicle, vehicleListAction
 }

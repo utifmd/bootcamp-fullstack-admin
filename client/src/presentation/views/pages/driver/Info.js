@@ -61,7 +61,7 @@ const Info = () => {
                         </div>
                     </div>}
                 {driver?.histories.length
-                    ? <div className="container">
+                    ? <div className="container my-5">
                         <span className="lead">Driver records</span>
                         <InfoTable driver={driver} />
                     </div>

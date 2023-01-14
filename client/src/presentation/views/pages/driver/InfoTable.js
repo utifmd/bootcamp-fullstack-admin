@@ -6,7 +6,7 @@ const InfoTable = ({ driver }) => <table class="table align-middle mb-0 bg-white
             <th>From</th>
             <th>To</th>
             <th>Fuel</th>
-            <th>Income</th>
+            <th>Earn</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@ const InfoTable = ({ driver }) => <table class="table align-middle mb-0 bg-white
                         />
                         <div class="ms-3">
                             <p class="fw-bold mb-1">{driver.name}</p>
-                            <p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{asCapitalize(driver.role)}</span></p>
+                            <p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{history.income ? 'Finised' : 'Progress'}</span></p>
                         </div>
                     </div>
                 </td>

@@ -1,4 +1,4 @@
-import { asCapitalize, asDateTimeFormat, asIdr } from "../../helper"
+import { asDateTimeFormat, asIdr } from "../../helper"
 const InfoTable = ({ vehicle }) => <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
         <tr>
@@ -6,7 +6,7 @@ const InfoTable = ({ vehicle }) => <table class="table align-middle mb-0 bg-whit
             <th>From</th>
             <th>To</th>
             <th>Fuel</th>
-            <th>Income</th>
+            <th>Earn</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +21,7 @@ const InfoTable = ({ vehicle }) => <table class="table align-middle mb-0 bg-whit
                             style={{ width: '45px', height: '45px' }}
                         />
                         <div class="ms-3">
-                            <p class="fw-bold mb-1">{vehicle.name}</p>
-                            <p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{asCapitalize(vehicle.vendor)}</span></p>
+                            <p class="fw-bold mb-1">{vehicle.name}</p><p class="text-muted mb-0"><span class="badge badge-primary rounded-pill d-inline">{history.income ? 'Finised' : 'Progress'}</span></p>
                         </div>
                     </div>
                 </td>

@@ -30,13 +30,16 @@ class Service {
 
     static getFeeds = () => this.instance()
         .get("histories/")
+        
+    static getRangedFeeds = (startDate, endDate) => this.instance()
+        .get(`histories/range/${startDate}/${endDate}`)
 
     static postFeeds = (token, fields) => this
         .instance(token)
         .post("histories/add", fields)
 
-    static putFeeds = (token, id, fields) => this.instance(token)
-        .put(`histories/update/${id}`, fields)
+    static putFeeds = (token, fields) => this.instance(token)
+        .put(`histories/update/${fields.id}/${fields.targetUserId}`, fields)
 
 
     static getVehicles = () => this.instance()
@@ -76,7 +79,7 @@ class Service {
     static deleteDriver = (token, id) => this.instance(token)
         .delete(`users/remove/${id}`)
 
-        
+
     static checkSpaceStories = (token) => this
         .instance(token)
         .get("stories/checkSpace")

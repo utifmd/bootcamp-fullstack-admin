@@ -1,26 +1,22 @@
-import { useState } from "react"
 import { SubNavbar } from "../../components"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useActionData, useNavigation } from "react-router-dom"
 import VehicleItem from "./VehicleItem"
 import { getAccountInfo } from "../../../../domain"
+import { backgroundStyle } from "../../helper"
 
 const Vehicles = () => {
     const { vehicles, error } = useLoaderData()
-    const [regex, setRegex] = useState("")
-    const [sortToggle] = useState(false)
     const { account } = getAccountInfo()
+    const actionData = useActionData()
+    const navigation = useNavigation()
 
-    const onSearchValueChange = (e) => {
-        e.preventDefault()
-        let value = e.target.value
-        setRegex(value)
-    }
-    return (<>
+    return (<div className="bg-image" style={backgroundStyle}>
         <div className="container py-5">
             <SubNavbar
                 isBtnNewVehicle={account.role === 'admin'}
-                onSearchValueChange={onSearchValueChange} />
-            {error &&
+                isSearch={true} />
+
+            { error &&
                 <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
                 
             <div className="p-5 my-4 bg-light rounded-3">
@@ -30,20 +26,22 @@ const Vehicles = () => {
                 </div>
             </div>
             <div className="row row-cols-1 row-cols-md-3 g-4">
-                {vehicles
-                    ?.sort((a, b) => sortToggle
-                        ? a.createdAt - b.createdAt
-                        : b.createdAt - a.createdAt
+                { actionData?.
+                    vehicles?.map((vehicle, i) => <VehicleItem 
+                        key={i} 
+                        vehicle={vehicle} 
+                        actionData={actionData}
+                        navigation={navigation} />
+                    ) || 
+                    vehicles?.map((vehicle, i) => <VehicleItem 
+                        key={i} 
+                        vehicle={vehicle} 
+                        actionData={actionData} 
+                        navigation={navigation}/>
                     )
-                    ?.filter(({ name, route, policeNumber }) =>
-                        name.includes(regex) ||
-                        route.includes(regex) ||
-                        policeNumber.includes(regex)
-                    )
-                    ?.map((vehicle, i) => <VehicleItem key={i} vehicle={vehicle} />)
                 }
             </div>
         </div>
-    </>)
+    </div>)
 }
 export default Vehicles

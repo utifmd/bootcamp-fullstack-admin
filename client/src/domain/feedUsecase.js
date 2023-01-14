@@ -13,6 +13,20 @@ const getFeeds = async () => {
         return { error }
     }
 }
+const rangeFeeds = async ({request}) => {
+    try {
+        const formData = await request.formData()
+        const { filterpicker } = Object.fromEntries(formData)
+        const feeds = await Service.getRangedFeeds(filterpicker, null)
+        if (!feeds.data) {
+            return { error: { message: "There was an error occurred." } }
+        }
+        console.log(feeds.data)
+        return { feeds: feeds.data }
+    } catch (error) {
+        return { error }
+    }
+}
 const putHistory = async ({ request, params }) => {
     try {
         const { access_token } = getAccountInfo()
@@ -21,7 +35,12 @@ const putHistory = async ({ request, params }) => {
         const error = { message: `Income must not be blank` }
 
         if (fields?.income && params?.id && params?.vehicleId && params?.userId) {
-            await Service.putFeeds(access_token, params.id, {income: fields.income})
+            let feedFields = {
+                id: params.id, 
+                targetUserId: params.userId, 
+                income: fields.income
+            }
+            await Service.putFeeds(access_token, feedFields)
             await Service.putVehicleStatus(access_token, params.vehicleId, {status: "standby"})
             await Service.removeStory(access_token, params.userId)
 
@@ -35,5 +54,5 @@ const putHistory = async ({ request, params }) => {
 }
 
 export {
-    getFeeds, putHistory
+    getFeeds, rangeFeeds, putHistory
 }

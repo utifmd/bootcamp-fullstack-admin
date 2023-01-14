@@ -78,6 +78,21 @@ const deleteDriver = async ({ params }) => {
         return { error: { message } }
     }
 }
+const searchDriver = async ({ request }) => {
+    try {
+        const formData = await request.formData()
+        const { query } = Object.fromEntries(formData)
+        const drivers = await Service.searchDrivers(query)
+        if (!drivers.data) {
+            return { error: { message: "There was an error occurred." } }
+        }
+        console.log(drivers.data)
+        return { drivers: drivers.data }
+    } catch (error) {
+        const message = error.response.data.error
+        return { error: { message } }
+    }
+}
 const driverInfoAction = async ({request, params}) => {
     switch(request.method){
         case 'DELETE':
@@ -89,5 +104,5 @@ const driverInfoAction = async ({request, params}) => {
     }
 }
 export {
-    getDrivers, getDriver, putDriver, driverInfoAction
+    getDrivers, getDriver, putDriver, searchDriver, driverInfoAction
 }

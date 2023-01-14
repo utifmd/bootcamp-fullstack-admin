@@ -1,13 +1,14 @@
 const asPhoneFormat = (num) => {
     let str = num?.toString() || num
-    let cleaned = ('' + str).replace(/\D/g, '');
+    let newStr = str?.charAt(0) === '8' ? '62'+str : str
 
+    let cleaned = ('' + newStr).replace(/\D/g, '');
     let match = cleaned.match(/^(\d{2})(\d{3})(\d{4})(\d{4})$/);
-
+    
     if (match) {
         return '+' + match[1] + '-' + match[2] + '-' + match[3] + '-' + match[4]
     }
-    return str
+    return newStr
 }
 const asDateFormat = (str) => {
     try {
