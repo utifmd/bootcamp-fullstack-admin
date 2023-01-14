@@ -1,8 +1,8 @@
 import axios from "axios"
 
 class Service {
-    static instance = (token, contentType) => axios.create({
-        baseURL: "http://127.0.0.1:5000/",
+    static instance = (token, contentType) => axios.create({ 
+        baseURL: process.env.REACT_APP_BASE_URL || "http://127.0.0.1:5000/",
         headers: token ? {
             "Content-Type": contentType || `application/json`,
             "access_token": token
@@ -10,7 +10,7 @@ class Service {
             "Content-Type": `application/json`
         }
     })
-
+    
     static authSignIn = (fields) => this.instance()
         .post("auth/signin/", fields)
 

@@ -1,4 +1,5 @@
-import { asCapitalize, asDateTimeFormat, asIdr } from "../../helper"
+import React from "react"
+import { asDateTimeFormat, asIdr } from "../../helper"
 const InfoTable = ({ driver }) => <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
         <tr>
@@ -10,7 +11,7 @@ const InfoTable = ({ driver }) => <table class="table align-middle mb-0 bg-white
         </tr>
     </thead>
     <tbody>
-        {driver.histories?.map(history =>
+        {driver && driver.histories && driver.histories.map(history =>
             <tr key={history.id}>
                 <td>
                     <div class="d-flex align-items-center">

@@ -1,3 +1,4 @@
+import React from "react"
 import VehicleForm from "./VehicleForm"
 
 const Add = () => {

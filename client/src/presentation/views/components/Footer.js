@@ -1,19 +1,20 @@
+import React from "react"
 import { Link } from "react-router-dom"
 const Footer = () => <>
-    <footer class="text-center">
-        <div class="container p-4 pb-0">
-            <section class="">
-                <p class="d-flex justify-content-center align-items-center">
-                    <span class="me-3">Have an account?</span>
-                    <Link to="/auth/login" type="button" class="btn btn-outline-dark btn-rounded">
+    <footer className="text-center">
+        <div className="container p-4 pb-0">
+            <section className="">
+                <p className="d-flex justify-content-center align-items-center">
+                    <span className="me-3">Have an account?</span>
+                    <Link to="/auth/login" type="button" className="btn btn-outline-dark btn-rounded">
                         Sign in!
                     </Link>
                 </p>
             </section>
         </div>
-        <div class="text-center p-3 bg-primary text-white">
+        <div className="text-center p-3 bg-primary text-white">
             © {new Date().getFullYear()} Copyright:&nbsp;
-            <a class="text-white" href="https://utif.pages.dev/">Flutter-BC-19</a>
+            <a className="text-white" href="https://utif.pages.dev/">Flutter-BC-19</a>
         </div>
     </footer>
 </>

@@ -1,3 +1,4 @@
+import React from "react"
 import { AuthContext } from "./"
 import { getAccountInfo, signOut } from "../../domain"
 

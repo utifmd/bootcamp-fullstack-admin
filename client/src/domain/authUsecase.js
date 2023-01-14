@@ -21,7 +21,7 @@ const signUp = async ({ request }) => {
             postAccountInfo(access_token, account)
             return redirect(`/feeds`)
         } catch (error) {
-            const message = error.response.data.error
+            const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
             return { error: { message } }
         }
     }
@@ -57,7 +57,7 @@ const putAuth = async ({ request, params }) => {
         }
         return { error }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -69,14 +69,15 @@ const signIn = async ({ request }) => {
     if (isValid) {
         try {
             const authResponse = await Service.authSignIn(fields)
-            const { access_token } = authResponse.data
+            const { access_token } = authResponse.data || {}
+
             const accountResponse = await Service.getAuth(access_token)
-            const account = accountResponse.data
+            const account = accountResponse.data || {}
             
             postAccountInfo(access_token, account)
             return redirect(`/feeds`)
         } catch (error) {
-            const message = error.response.data.error
+            const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
             return { error: { message } }
         }
     }
@@ -87,7 +88,7 @@ const signOut = async () => {
         localStorage.clear()
         return redirect(`/`)
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -106,7 +107,7 @@ const changePassword = async ({ request }) => {
         return redirect(`/`)
 
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -134,7 +135,6 @@ const getAccountInfo = () => {
 }
 const postAccountInfo = (token, account) => {
     localStorage.setItem("access_token", token)
-    if(!account) return
     localStorage.setItem("name", account.name)
     localStorage.setItem("imageUrl", account.imageUrl)
     localStorage.setItem("role", account.role)

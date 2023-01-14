@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, useActionData, useNavigation } from "react-router-dom"
 const Edit = () => {
     const navigation = useNavigation()
@@ -17,16 +18,12 @@ const Edit = () => {
                             placeholder="(IDR) Income of theday" />
                         <label htmlFor="income">Income</label>
                     </div>
-                    {error
-                        ?.income
-                        ?.length
+                    {error && error.income
                         ? <small className="text-danger">* {error.income}</small>
                         : null}
                 </div>
-                {error
-                    ?.message
-                    ?.length
-                    ? <div class="alert alert-danger mt-2" role="alert"> {error?.message} </div>
+                {error && error.message
+                    ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
                     : null}
                 <button
                     className="btn btn-lg btn-primary mt-3"

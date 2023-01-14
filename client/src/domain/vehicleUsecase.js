@@ -55,7 +55,7 @@ const deleteVehicle = async ({ params }) => {
         }
         return redirect(`../list`)
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -74,7 +74,7 @@ const putVehicle = async ({ request, params }) => {
         }
         return { error }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -91,7 +91,7 @@ const putVehicleStatus = async ({ request }) => {
 
         return redirect(`../list`)
     } catch (error) {
-        const message = error.response.data.error || `You have taken another car.`
+        const message = error.response && error.response.data ? error.response.data.error : `You have taken another car.`
         return { error: { message } }
     }
 }

@@ -1,3 +1,4 @@
+import React from "react"
 import { Route } from "react-router-dom"
 import { DashboardUser, Feed, FeedEdit } from "../views/pages"
 import { AuthScope } from "../state"

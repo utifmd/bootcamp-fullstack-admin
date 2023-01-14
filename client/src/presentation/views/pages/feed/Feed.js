@@ -1,3 +1,4 @@
+import React from "react"
 import { useActionData, useLoaderData } from "react-router-dom"
 import { getAccountInfo } from "../../../../domain"
 import { SubNavbar } from "../../components"
@@ -10,31 +11,38 @@ const Feed = () => {
     return (
         <div className="container py-5">
             <SubNavbar isDateStart={true} />
-            {actionData?.error || error &&
+            {actionData && actionData.error &&
                 <div
                     className="alert alert-danger m-5"
                     role="alert">
-                    {actionData?.error?.message || error?.message || error}
+                    {actionData.error.message || error}
+                </div>
+            }
+            {error &&
+                <div
+                    className="alert alert-danger m-5"
+                    role="alert">
+                    {error.message || error}
                 </div>
             }
             <div className="row">
-                <table> {actionData
-                    ?.feeds
-                    ?.map((history, i) =>
-                        <FeedItem
-                            key={i}
-                            i={i}
-                            history={history}
-                            account={account} />) ||
-                    feeds
-                        ?.map((history, i) =>
-                            <FeedItem
-                                key={i}
-                                i={i}
-                                history={history}
-                                account={account} />
-                        )
-                } </table>
+                <table> 
+                {actionData 
+                ? actionData.feeds.map((history, i) =>
+                    <FeedItem
+                        key={i}
+                        i={i}
+                        history={history}
+                        account={account} />
+                )
+                : feeds && feeds.map((history, i) =>
+                    <FeedItem
+                        key={i}
+                        i={i}
+                        history={history}
+                        account={account} />
+                )}
+                </table>
             </div>
         </div>
     )

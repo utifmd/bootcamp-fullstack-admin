@@ -1,3 +1,4 @@
+import React from "react"
 import { Route } from "react-router-dom"
 import { 
     DashboardUser, Vehicle, VehicleEdit, VehicleAdd, VehicleInfo, Error 
@@ -25,7 +26,7 @@ const router = () =>
     <Route 
         path="add"
         action={postVehicle}
-        element={<AuthScope><VehicleAdd/></AuthScope>} />
+        element={<AuthScope><AdminScope><VehicleAdd/></AdminScope></AuthScope>} />
 
     <Route 
         path="info/:id"

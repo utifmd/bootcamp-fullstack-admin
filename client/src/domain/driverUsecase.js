@@ -11,7 +11,7 @@ const getDrivers = async () => {
         }
         return { drivers: drivers.data }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -24,7 +24,7 @@ const getDriver = async ({ params }) => {
         }
         return { driver: driver.data }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -42,7 +42,7 @@ const putDriver = async ({ request, params }) => {
         }
         return { error }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -59,7 +59,7 @@ const approveDriver = async ({ request, params }) => {
         }
         return null
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -74,7 +74,7 @@ const deleteDriver = async ({ params }) => {
         }
         return redirect(`../list`)
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }
@@ -89,7 +89,7 @@ const searchDriver = async ({ request }) => {
         console.log(drivers.data)
         return { drivers: drivers.data }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }

@@ -1,3 +1,4 @@
+import React from "react"
 import { Route } from "react-router-dom"
 import {
     Login, Register, AuthEdit, AuthChange, Error, DashboardGuest

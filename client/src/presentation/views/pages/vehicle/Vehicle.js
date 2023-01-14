@@ -1,3 +1,4 @@
+import React from "react"
 import { SubNavbar } from "../../components"
 import { useLoaderData, useActionData, useNavigation } from "react-router-dom"
 import VehicleItem from "./VehicleItem"
@@ -16,9 +17,9 @@ const Vehicles = () => {
                 isBtnNewVehicle={account.role === 'admin'}
                 isSearch={true} />
 
-            { error &&
-                <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
-                
+            {error &&
+                <div class="alert alert-danger m-5" role="alert"> {error.message || error} </div>}
+
             <div className="p-5 my-4 bg-light rounded-3">
                 <div className="container-fluid py-5">
                     <h1 className="display-5 fw-bold">Angkot kami</h1>
@@ -26,20 +27,19 @@ const Vehicles = () => {
                 </div>
             </div>
             <div className="row row-cols-1 row-cols-md-3 g-4">
-                { actionData?.
-                    vehicles?.map((vehicle, i) => <VehicleItem 
-                        key={i} 
-                        vehicle={vehicle} 
-                        actionData={actionData}
-                        navigation={navigation} />
-                    ) || 
-                    vehicles?.map((vehicle, i) => <VehicleItem 
-                        key={i} 
-                        vehicle={vehicle} 
-                        actionData={actionData} 
-                        navigation={navigation}/>
-                    )
-                }
+                {actionData 
+                ? actionData.vehicles.map((vehicle, i) => <VehicleItem
+                    key={i}
+                    vehicle={vehicle}
+                    actionData={actionData}
+                    navigation={navigation} />
+                )
+                : vehicles && vehicles.map((vehicle, i) => <VehicleItem
+                    key={i}
+                    vehicle={vehicle}
+                    actionData={actionData}
+                    navigation={navigation} />
+                )}
             </div>
         </div>
     </div>)

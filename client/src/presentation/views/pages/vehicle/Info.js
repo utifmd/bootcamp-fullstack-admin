@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, Link, useLoaderData } from "react-router-dom"
 import { getAccountInfo } from "../../../../domain"
 
@@ -12,16 +13,15 @@ const Info = () => {
         <div className="container">
             <div className="lead mt-5">Vehicle information</div>
             {error &&
-                <div class="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
+                <div class="alert alert-danger m-5" role="alert"> {error.message || error} </div>}
 
             {vehicle && <div className="row justify-content-evenly align-items-center my-3  mb-5">
                 <div className="col-md-6 p-5">
-                    <img src={vehicle?.imageUrl} style={{ width: `100%`, height: `100%`, objectFit: `cover` }} className="img-thumbnail" alt="user" />
+                    <img src={vehicle.imageUrl} style={{ width: `100%`, height: `100%`, objectFit: `cover` }} className="img-thumbnail" alt="user" />
                 </div>
                 <div className="col-md-6">
                     <InfoListVIew vehicle={vehicle} />
-                    {account
-                        ?.role === "admin"
+                    {account && account.role === "admin"
                         ? <div className="row pt-4 px-5">
                             <div className="col">
                                 <Form method="delete">
@@ -32,7 +32,7 @@ const Info = () => {
                             </div>
                             <div className="col"><Link
                                 className="btn btn-outline-dark btn-rounded w-100"
-                                to={`../edit/${vehicle?.id}`}
+                                to={`../edit/${vehicle.id}`}
                                 data-ripple-color="dark">Change info</Link></div>
 
                             {/* <div className="col">
@@ -47,9 +47,7 @@ const Info = () => {
                     }
                 </div>
             </div>}
-            { vehicle
-                ?.histories
-                ?.length
+            { vehicle && vehicle.histories
                 ? <div className="container my-5">
                     <span className="lead">Vehicle boarding records</span>
                     <InfoTable vehicle={vehicle} />

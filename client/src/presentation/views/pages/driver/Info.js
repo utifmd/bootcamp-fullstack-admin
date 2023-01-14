@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, useLoaderData, Link, useNavigation } from "react-router-dom"
 import InfoTable from "./InfoTable"
 import InfoListView from "./InfoListView"
@@ -13,12 +14,12 @@ const Info = () => {
             <div className="container">
                 <div className="lead mt-5">Driver information</div>
                 {error &&
-                    <div className="alert alert-danger m-5" role="alert"> {error?.message || error} </div>}
+                    <div className="alert alert-danger m-5" role="alert"> {error.message || error} </div>}
 
                 {driver &&
                     <div className="row justify-content-evenly align-items-center mt-3 mb-5">
                         <div className="col-md-6 p-5">
-                            <img src={driver?.imageUrl} style={{ width: `100%`, height: `100%`, objectFit: `cover` }} className="img-thumbnail" alt="driver" />
+                            <img src={driver.imageUrl} style={{ width: `100%`, height: `100%`, objectFit: `cover` }} className="img-thumbnail" alt="driver" />
                         </div>
                         <div className="col-md-6">
                             <InfoListView user={driver} />
@@ -37,7 +38,7 @@ const Info = () => {
                                     <div className="col">
                                         <Link
                                             className="btn btn-outline-dark btn-rounded w-100"
-                                            to={`../edit/${driver?.id}`}
+                                            to={`../edit/${driver.id}`}
                                             role="button"
                                             data-ripple-color="dark">
                                             Change
@@ -60,7 +61,7 @@ const Info = () => {
                                 : null}
                         </div>
                     </div>}
-                {driver?.histories.length
+                {driver.histories.length
                     ? <div className="container my-5">
                         <span className="lead">Driver records</span>
                         <InfoTable driver={driver} />

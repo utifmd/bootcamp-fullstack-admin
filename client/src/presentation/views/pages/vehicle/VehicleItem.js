@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, Link } from "react-router-dom"
 import { asDateTimeFormat } from "../../helper"
 import { getAccountInfo } from "../../../../domain"
@@ -13,8 +14,7 @@ const Item = ({ vehicle, actionData, navigation }) => {
                 <h5 className="card-title">{vehicle.name}</h5>
                 <p className="card-text">{vehicle.route}</p>
                 <div className="d-flex gap-2 justify-content-center">
-                    {account
-                        ?.role === "driver"
+                    {account && account.role === "driver"
                         ? <Form method="put">
                             <input type="hidden" name="id" value={vehicle.id} />
                             <input type="hidden" name="status" value="onboarding" />
@@ -33,11 +33,8 @@ const Item = ({ vehicle, actionData, navigation }) => {
                     <Link to={`../info/${vehicle.id}`} className="btn btn-info">preview</Link>
                 </div>
                 <div className="pt-3">
-                    {actionData
-                        ?.error
-                        ?.message
-                        ?.length
-                        ? <small class="text-danger" role="alert">{actionData.error.message}</small>
+                    {actionData && actionData.error
+                        ? <small class="text-danger" role="alert">{actionData.error.message || 'An error occurred'}</small>
                         : null}
                 </div>
             </div>

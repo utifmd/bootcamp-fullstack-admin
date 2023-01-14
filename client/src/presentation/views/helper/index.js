@@ -1,6 +1,6 @@
 const asPhoneFormat = (num) => {
-    let str = num?.toString() || num
-    let newStr = str?.charAt(0) === '8' ? '62'+str : str
+    let str = (num && num.toString()) || num
+    let newStr = str && str.charAt(0) === '8' ? '62'+str : str
 
     let cleaned = ('' + newStr).replace(/\D/g, '');
     let match = cleaned.match(/^(\d{2})(\d{3})(\d{4})(\d{4})$/);
@@ -37,13 +37,13 @@ const asDateTimeFormat = (str) => {
         return str
     }
 }
-const asCapitalize = (str) => str
-    ?.charAt(0)
-    ?.toUpperCase()
-    ?.concat(str.slice(1))
+const asCapitalize = (str) => (str && str
+    .charAt(0)
+    .toUpperCase()
+    .concat(str.slice(1)))
     || str
 
-const asIdr = (num) => "IDR ".concat((num || 0)?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, "."))
+const asIdr = (num) => "IDR ".concat((num || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."))
 
 const backgroundStyle = {
     minHeight: "100vh",

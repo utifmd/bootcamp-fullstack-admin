@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, useActionData, useNavigation } from "react-router-dom"
 
 const Register = () => {
@@ -18,9 +19,7 @@ const Register = () => {
                             placeholder="name@example.com" />
                         <label htmlFor="floatingInput">Email address</label>
                     </div>
-                    { error
-                        ?. email
-                        ?. length 
+                    { error && error.email
                         ? <small className="text-danger">* { error.email }</small> 
                         : null }
                     <div className="form-floating mt-2">
@@ -32,9 +31,7 @@ const Register = () => {
                             placeholder="Password" />
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
-                    { error
-                        ?. password
-                        ?. length 
+                    { error && error.password
                         ? <small className="text-danger">* { error.password }</small> 
                         : null }
                     <div className="form-floating mt-2">
@@ -46,16 +43,12 @@ const Register = () => {
                             placeholder="Confirm Password" />
                         <label htmlFor="floatingConfirmPassword">Confirm Password</label>
                     </div>
-                    { error
-                        ?. confirmPassword
-                        ?. length 
+                    { error && error.confirmPassword
                         ? <small className="text-danger">* { error.confirmPassword }</small> 
                         : null }
 
-                    { error
-                        ?. message
-                        ?. length 
-                        ? <div class="alert alert-danger mt-2" role="alert"> { error.message } </div> 
+                    { error && error.message
+                        ? <div className="alert alert-danger mt-2" role="alert"> { error.message } </div> 
                         : null }
                         
                     <button

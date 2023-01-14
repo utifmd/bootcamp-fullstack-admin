@@ -1,3 +1,4 @@
+import React from "react"
 import { asDateTimeFormat, asIdr } from "../../helper"
 const InfoTable = ({ vehicle }) => <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">

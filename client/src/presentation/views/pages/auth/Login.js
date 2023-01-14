@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, useActionData, useNavigation } from "react-router-dom"
 
 const Register = () => {
@@ -19,9 +20,7 @@ const Register = () => {
                             placeholder="name@example.com"/>
                         <label htmlFor="floatingInput">Email address</label>
                     </div>
-                    {error
-                        ?.email
-                        ?.length
+                    {error && error.email
                         ? <small className="text-danger">* {error.email}</small>
                         : null}
 
@@ -34,14 +33,10 @@ const Register = () => {
                             placeholder="Password"/>
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
-                    {error
-                        ?.password
-                        ?.length
+                    {error && error.password
                         ? <small className="text-danger">* {error.password}</small>
                         : null}
-                    {error
-                        ?.message
-                        ?.length
+                    {error && error.message
                         ? <div class="alert alert-danger mt-2" role="alert"> {error.message} </div>
                         : null}
                     <button

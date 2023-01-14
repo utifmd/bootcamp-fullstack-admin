@@ -34,7 +34,7 @@ const putHistory = async ({ request, params }) => {
         const fields = Object.fromEntries(formData)
         const error = { message: `Income must not be blank` }
 
-        if (fields?.income && params?.id && params?.vehicleId && params?.userId) {
+        if (fields.income && params.id && params.vehicleId && params.userId) {
             let feedFields = {
                 id: params.id, 
                 targetUserId: params.userId, 
@@ -48,7 +48,7 @@ const putHistory = async ({ request, params }) => {
         }
         return { error }
     } catch (error) {
-        const message = error.response.data.error
+        const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
     }
 }

@@ -1,3 +1,4 @@
+import React from "react"
 import { Link } from "react-router-dom"
 import { asPhoneFormat, asDateFormat } from "../../helper"
 const DriverItem = ({ driver }) => <>
@@ -8,8 +9,8 @@ const DriverItem = ({ driver }) => <>
                     <img
                         className="row mx-auto d-block border border-1 rounded-circle"
                         src={driver.imageUrl}
-                        style={{ width: `125px`, height: `125px`, objectFit: `contain` }}
-                        role="img" />
+                        alt={driver.name}
+                        style={{ width: `125px`, height: `125px`, objectFit: `contain` }} />
                 </div>
                 <div className="col">
                     <strong className="d-inline-block mb-2 text-primary">{driver.role.toUpperCase()}</strong>

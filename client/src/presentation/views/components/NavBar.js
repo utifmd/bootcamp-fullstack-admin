@@ -1,3 +1,4 @@
+import React from "react"
 import { Link, useNavigate, useNavigation } from "react-router-dom"
 import { getAccountInfo } from "../../../domain"
 import { useAuth } from "../../state"
@@ -32,7 +33,7 @@ const NavBar = () => {
                         </ul>
                     </div>
                     {navigation.state === "loading" || navigation.state === "submitting" ? <Loading /> : null}
-                    {account?.name ? <div className="d-flex align-items-center me-2">
+                    {account && account.name ? <div className="d-flex align-items-center me-2">
                         <div className="dropdown">
                             <Link
                                 className="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -43,13 +44,13 @@ const NavBar = () => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src={account?.imageUrl}
+                                    src={account.imageUrl}
                                     className="rounded-circle"
                                     style={{width:`25px`, height:`25px`, objectFit: `cover`}}
                                     alt="Black and White Portrait of a Man"
                                     loading="lazy"
                                 />
-                                <strong className="d-none d-sm-block ms-1 text-dark">{account?.name !== 'null' ? account?.name : account.role}</strong>
+                                <strong className="d-none d-sm-block ms-1 text-dark">{account.name !== 'null' ? account.name : account.role}</strong>
                             </Link>
                             <ul
                                 className="dropdown-menu dropdown-menu-end"

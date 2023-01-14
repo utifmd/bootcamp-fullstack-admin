@@ -1,3 +1,4 @@
+import React from "react"
 import { Form, useActionData } from "react-router-dom"
 const Change = () => {
     const actionData = useActionData()
@@ -18,9 +19,7 @@ const Change = () => {
                             />
                         <label htmlFor="floatingInput">Current password</label>
                     </div>
-                    { error
-                        ?. currentPassword
-                        ?. length 
+                    { error && error.currentPassword
                         ? <small className="text-danger">* { error.currentPassword }</small> 
                         : null }
                     <div className="form-floating mt-2">
@@ -33,9 +32,7 @@ const Change = () => {
                             />
                         <label htmlFor="floatingPassword">New password</label>
                     </div>
-                    { error
-                        ?. password
-                        ?. length 
+                    { error && error.password
                         ? <small className="text-danger">* { error.password }</small> 
                         : null }
                     <div className="form-floating mt-2">
@@ -48,15 +45,11 @@ const Change = () => {
                             />
                         <label htmlFor="floatingConfirmPassword">Confirm Password</label>
                     </div>
-                    { error
-                        ?. confirmPassword
-                        ?. length 
+                    { error && error.confirmPassword
                         ? <small className="text-danger">* { error.confirmPassword }</small> 
                         : null }
 
-                    { error
-                        ?. message
-                        ?. length 
+                    { error && error.message
                         ? <div class="alert alert-danger mt-2" role="alert"> { error.message } </div> 
                         : null }
                     <button

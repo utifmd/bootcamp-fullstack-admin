@@ -1,3 +1,4 @@
+import React from "react"
 import { asDateFormat } from "../../helper"
 
 const InfoListView = ({ vehicle }) => vehicle && <ul className="list-group list-group-light">
@@ -6,7 +7,7 @@ const InfoListView = ({ vehicle }) => vehicle && <ul className="list-group list-
             <div className="fw-bold">Name</div>
             <div className="text-muted"><i className="fas fa-edit fs"></i> {vehicle.name} ({vehicle.vendor})</div>
         </div>
-        <span className={`badge ms-2 rounded-pill ${vehicle.status === 'onboarding' ? "badge-danger" : "badge-success"}`}>Status {vehicle?.status === 'onboarding' ? "onboarding" : "standby"}</span>
+        <span className={`badge ms-2 rounded-pill ${vehicle.status === 'onboarding' ? "badge-danger" : "badge-success"}`}>Status {vehicle.status === 'onboarding' ? "onboarding" : "standby"}</span>
     </li>
     <li className="list-group-item d-flex justify-content-between align-items-center px-5">
         <div>
