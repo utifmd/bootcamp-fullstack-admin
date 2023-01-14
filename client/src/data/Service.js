@@ -5,9 +5,9 @@ class Service {
         baseURL: process.env.REACT_APP_BASE_URL || "http://127.0.0.1:5000/",
         headers: token ? {
             "Content-Type": contentType || `application/json`,
-            "access_token": token
+            "access_token": token,
         } : {
-            "Content-Type": `application/json`
+            "Content-Type": `application/json`,
         }
     })
     
