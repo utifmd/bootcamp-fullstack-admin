@@ -69,9 +69,9 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isUrl: true
-      }
+      // validate: {
+      //   isUrl: true
+      // }
     } //, HistoryId: DataTypes.INTEGER
   }, {
     sequelize,

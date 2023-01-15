@@ -70,7 +70,7 @@ class Controller {
             let text = state === 1 
                 ? `Vehicle with id ${id} has been updated` 
                 : { message: `Couldn\'t update vehicle with id ${id}` }
-            resp.status(state === 1? 200: 404).send(new Message(text))
+            resp.status(state === 1? 200: 403).send(new Message(text))
             
         } catch (error) {
             resp.status(400).send(new Message(error))
