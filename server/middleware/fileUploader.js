@@ -16,8 +16,7 @@ const upload = multer({ storage }).single("image")
 const uploader = async (req, resp, next) => {
     return await upload(req, resp, function (err) {
         const host = req.protocol + "://" + req.get("host")
-        console.log(req.file)
-        if (!req.file) {
+        if (!req.file?.path) {
             console.log("no file is selected")
             next()
             return
