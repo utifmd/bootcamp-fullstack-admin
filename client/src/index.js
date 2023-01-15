@@ -5,8 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import router from './presentation/router';
 
-require('dotenv').config()
-
 const root = ReactDOM.createRoot(
   document.getElementById('root')
 )
