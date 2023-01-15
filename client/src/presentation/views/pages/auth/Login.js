@@ -42,8 +42,10 @@ const Register = () => {
                     <button
                         disabled={navigation.state === "loading" || navigation.state === "submitting"}
                         className="w-100 btn btn-lg btn-primary mt-3"
-                        type="submit">Sign In</button>
-
+                        type="submit"> {(
+                            navigation.state === "loading" || 
+                            navigation.state === "submitting") && 
+                            <div className="spinner-border text-light spinner-border-sm"/>} Sign In</button>
                     <hr className="my-4" />
                     <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
                 </Form>

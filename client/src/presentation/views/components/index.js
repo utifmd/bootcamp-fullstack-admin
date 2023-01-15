@@ -4,6 +4,7 @@ import Header from "./Header"
 import Banner from "./Banner"
 import Footer from "./Footer"
 import Loading from "./Loading"
+import Dialog from "./Dialog"
 export {
-    NavBar, Header, Banner, Footer, SubNavbar, Loading
+    NavBar, Header, Banner, Footer, SubNavbar, Loading, Dialog
 }

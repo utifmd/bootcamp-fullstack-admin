@@ -54,7 +54,10 @@ const Register = () => {
                     <button
                         className="w-100 btn btn-lg btn-primary mt-3"
                         disabled={navigation.state === "submitting" || navigation.state === "loading"}
-                        type="submit">Sign Up</button>
+                        type="submit">{(
+                            navigation.state === "loading" || 
+                            navigation.state === "submitting") && 
+                            <div className="spinner-border text-light spinner-border-sm"/>} Sign Up</button>
                         
                     <hr className="my-4" />
                     <small className="text-muted">By clicking Sign up, you agree to the terms of use.</small>

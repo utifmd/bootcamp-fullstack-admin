@@ -1,8 +1,10 @@
 import React from "react"
-import { Form, useActionData } from "react-router-dom"
+import { Form, useActionData, useNavigation } from "react-router-dom"
 const Change = () => {
     const actionData = useActionData()
     const { error } = actionData || {}
+    const navigation = useNavigation()
+    
     return (<>
         <div className="my-4" />
         <div className="container">
@@ -54,7 +56,10 @@ const Change = () => {
                         : null }
                     <button
                         className="w-100 btn btn-lg btn-primary mt-3"
-                        type="submit">Change password</button>
+                        type="submit">{(
+                            navigation.state === "loading" || 
+                            navigation.state === "submitting") && 
+                            <div className="spinner-border text-light spinner-border-sm"/>} Change password</button>
 
                     <hr className="my-4" />
                     <small className="text-muted">By clicking change password, you agree to the terms of use.</small>

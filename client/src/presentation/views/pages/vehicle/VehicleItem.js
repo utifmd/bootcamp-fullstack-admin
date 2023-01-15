@@ -9,7 +9,7 @@ const Item = ({ vehicle, actionData, navigation }) => {
     return (<div className="col">
         <div className="card text-center">
             <div className="card-header">{vehicle.policeNumber}</div>
-            <img src={vehicle.imageUrl} className="img-fluid" style={{height: `250px`, objectFit: `cover`}} alt={vehicle.name} />
+            <img src={vehicle.imageUrl} className="img-fluid" style={{ height: `250px`, objectFit: `cover` }} alt={vehicle.name} />
             <div className="card-body">
                 <h5 className="card-title">{vehicle.name}</h5>
                 <p className="card-text">{vehicle.route}</p>
@@ -25,7 +25,11 @@ const Item = ({ vehicle, actionData, navigation }) => {
                                     vehicle.status !== "standby"
                                 }
                                 className={`btn ${vehicle.status === "standby" ? 'btn-primary' : 'btn-danger'}`}>
-                                {vehicle.status === "standby" ? `Take` : `Taken`}
+                                {(
+                                    navigation.state === "loading" ||
+                                    navigation.state === "submitting") &&
+                                    <div className="spinner-border text-light spinner-border-sm" />} 
+                                    {vehicle.status === "standby" ? `Take` : `Taken`}
                             </button>
                         </Form>
                         : null

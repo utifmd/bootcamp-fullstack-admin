@@ -95,7 +95,11 @@ const VehicleForm = ({ vehicle, isEdit, errorLoader }) => {
             {error && error.message
                 ? <div className="alert alert-danger mt-2" role="alert"> {error.message} </div>
                 : null}
-            <button disabled={navigation.state === "submitting" || navigation.state === "loading"} className="btn btn-lg btn-primary mt-3" type="submit">Save</button>
+            <button disabled={navigation.state === "submitting" || navigation.state === "loading"} className="btn btn-lg btn-primary mt-3" type="submit">
+                {(
+                    navigation.state === "loading" ||
+                    navigation.state === "submitting") &&
+                    <div className="spinner-border text-light spinner-border-sm" />}Save</button>
             <hr className="my-4" />
             <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
         </Form>
