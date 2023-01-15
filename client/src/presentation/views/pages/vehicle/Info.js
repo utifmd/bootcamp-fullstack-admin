@@ -47,7 +47,7 @@ const Info = () => {
                     }
                 </div>
             </div>}
-            { vehicle && vehicle.histories
+            { vehicle && vehicle.histories.length > 0
                 ? <div className="container my-5">
                     <span className="lead">Vehicle boarding records</span>
                     <InfoTable vehicle={vehicle} />

@@ -20,11 +20,11 @@ const Driver = () => {
 
             <div className="container pt-4 g-2">
                 <div class="row row-cols-1 row-cols-md-2">
-                    { actionData 
-                    ? actionData.drivers.map((driver, i) => 
-                        <DriverItem key={i} driver={driver} />)
-                    : drivers && drivers.map((driver, i) => 
-                        <DriverItem key={i} driver={driver} />) 
+                    {actionData
+                        ? actionData.drivers.map((driver, i) =>
+                            <DriverItem key={i} driver={driver} />)
+                        : drivers && drivers.map((driver, i) =>
+                            <DriverItem key={i} driver={driver} />)
                     }
                 </div>
             </div>

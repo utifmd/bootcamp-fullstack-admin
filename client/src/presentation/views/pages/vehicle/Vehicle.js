@@ -17,29 +17,28 @@ const Vehicles = () => {
                 isBtnNewVehicle={account.role === 'admin'}
                 isSearch={true} />
 
-            {error &&
-                <div class="alert alert-danger m-5" role="alert"> {error.message || error} </div>}
-
             <div className="p-5 my-4 bg-light rounded-3">
                 <div className="container-fluid py-5">
                     <h1 className="display-5 fw-bold">Angkot kami</h1>
                     <p className="col-md-8 fs-4">Silahkan pilih angkot dibawah untuk digunakan.</p>
                 </div>
             </div>
+            
+            {error &&
+                <div class="alert alert-danger m-5" role="alert"> {error.message || error} </div>}
+
+            {actionData && actionData.error
+                ? <div className="alert alert-danger m-5" role="alert"> {actionData.error.message || `You have taken another car.`} </div>
+                : null}
+
             <div className="row row-cols-1 row-cols-md-3 g-4">
                 {actionData
-                    ? actionData.vehicle
-                        ? actionData.vehicles.map((vehicle, i) => <VehicleItem
-                            key={i}
-                            vehicle={vehicle}
-                            actionData={actionData}
-                            navigation={navigation} />
-                        )
-                        : <div className="pt-3">
-                            {actionData && actionData.error
-                                ? <div className="alert alert-danger mt-2" role="alert"> {actionData.error.message || `You have taken another car.`} </div>
-                                : null}
-                        </div>
+                    ? actionData.vehicles && actionData.vehicles.map((vehicle, i) => <VehicleItem
+                        key={i}
+                        vehicle={vehicle}
+                        actionData={actionData}
+                        navigation={navigation} />
+                    )
                     : vehicles && vehicles.map((vehicle, i) => <VehicleItem
                         key={i}
                         vehicle={vehicle}

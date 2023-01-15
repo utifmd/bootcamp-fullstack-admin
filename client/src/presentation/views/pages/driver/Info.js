@@ -61,7 +61,7 @@ const Info = () => {
                                 : null}
                         </div>
                     </div>}
-                {driver.histories.length
+                {driver && driver.histories.length > 0
                     ? <div className="container my-5">
                         <span className="lead">Driver records</span>
                         <InfoTable driver={driver} />

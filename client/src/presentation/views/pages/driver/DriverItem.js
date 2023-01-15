@@ -7,10 +7,10 @@ const DriverItem = ({ driver }) => <>
             <div className="row align-items-center m-4">
                 <div className="col">
                     <img
-                        className="row mx-auto d-block border border-1 rounded-circle"
+                        className="row mx-auto d-block border border-5 rounded-circle"
                         src={driver.imageUrl}
                         alt={driver.name}
-                        style={{ width: `125px`, height: `125px`, objectFit: `contain` }} />
+                        style={{ width: `125px`, height: `125px`, objectFit: `cover` }} />
                 </div>
                 <div className="col">
                     <strong className="d-inline-block mb-2 text-primary">{driver.role.toUpperCase()}</strong>

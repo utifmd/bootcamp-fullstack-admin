@@ -2,7 +2,7 @@ import React from "react"
 import { Form, Link } from "react-router-dom"
 
 const SubNavbar = ({
-    sortToggle, setSortToggle, isBtnNewVehicle, isSearch, isDateStart }) => {
+    sortToggle, setSortToggle, isBtnNewVehicle, isSearch, isDateStart, setToggleDate }) => {
     return (<>
         <div className="d-flex align-items-center">
             {isSearch ? <div className="d-flex">
@@ -20,13 +20,13 @@ const SubNavbar = ({
                 <Link className="input-group-text border-0" id="search-addon"><i className="fas fa-close"></i></Link>
             </div> : null}
             {isDateStart ? <div className="d-flex">
-                <Form method="post" className="d-flex input-group w-auto" >
+                <Form method="post" className="d-flex input-group w-auto" onSubmit={() => setToggleDate(false)} >
                     <span className="input-group-text border-0" id="search-addon"><i className="fas fa-search"></i></span>
                     <div class="input-group log-event" >
                         <input
                             id="datetimepicker"
                             name="filterpicker"
-                            type="datetime-local"
+                            type="date"
                             class="form-control"  />
                         <input type="submit" style={{display: 'none'}} />
                     </div>
