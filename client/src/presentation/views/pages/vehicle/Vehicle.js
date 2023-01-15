@@ -27,19 +27,25 @@ const Vehicles = () => {
                 </div>
             </div>
             <div className="row row-cols-1 row-cols-md-3 g-4">
-                {actionData 
-                ? actionData.vehicles.map((vehicle, i) => <VehicleItem
-                    key={i}
-                    vehicle={vehicle}
-                    actionData={actionData}
-                    navigation={navigation} />
-                )
-                : vehicles && vehicles.map((vehicle, i) => <VehicleItem
-                    key={i}
-                    vehicle={vehicle}
-                    actionData={actionData}
-                    navigation={navigation} />
-                )}
+                {actionData
+                    ? actionData.vehicle
+                        ? actionData.vehicles.map((vehicle, i) => <VehicleItem
+                            key={i}
+                            vehicle={vehicle}
+                            actionData={actionData}
+                            navigation={navigation} />
+                        )
+                        : <div className="pt-3">
+                            {actionData && actionData.error
+                                ? <div className="alert alert-danger mt-2" role="alert"> {actionData.error.message || `You have taken another car.`} </div>
+                                : null}
+                        </div>
+                    : vehicles && vehicles.map((vehicle, i) => <VehicleItem
+                        key={i}
+                        vehicle={vehicle}
+                        actionData={actionData}
+                        navigation={navigation} />
+                    )}
             </div>
         </div>
     </div>)
