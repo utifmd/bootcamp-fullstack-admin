@@ -2,6 +2,7 @@ import { redirect } from "react-router-dom"
 import { vehicleValidations } from "../presentation/views/helper"
 import { Service } from "../data"
 import { getAccountInfo } from "./authUsecase"
+import Swal from "sweetalert2"
 
 const getVehicles = async () => {
     try {
@@ -48,12 +49,26 @@ const deleteVehicle = async ({ params }) => {
     try {
         const { access_token } = getAccountInfo()
 
-        console.log(`"delete vehicle" ${params.id}`)
-        const response = await Service.deleteVehicle(access_token, params.id)
-        if (!response.data) {
-            return { error: { message: "There was an error occurred." } }
-        }
-        return redirect(`../list`)
+        return await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async (result) => {
+            if (result.isConfirmed) { 
+                const response = await Service.deleteVehicle(access_token, params.id)
+                if (!response.data) {
+                    return { error: { message: "There was an error occurred." } }
+                }
+                return redirect(`../list`)
+            }
+            return null
+        }).catch(error => {
+            const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
+            return { error: { message } }
+        })
     } catch (error) {
         const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }

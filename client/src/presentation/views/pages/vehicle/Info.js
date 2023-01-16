@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Link, useLoaderData } from "react-router-dom"
+import { Form, Link, useLoaderData, useNavigation } from "react-router-dom"
 import { getAccountInfo } from "../../../../domain"
 
 import InfoListVIew from "./InfoListView"
@@ -8,6 +8,7 @@ import InfoTable from "./InfoTable"
 const Info = () => {
     const { vehicle, error } = useLoaderData()
     const { account } = getAccountInfo()
+    const navigation = useNavigation()
 
     return (<div className="bg-light">
         <div className="container">
@@ -26,6 +27,7 @@ const Info = () => {
                             <div className="col">
                                 <Form method="delete">
                                     <button type="submit"
+                                        disabled={navigation.state === 'loading' || navigation.state === 'submitting'}
                                         className="btn btn-outline-danger btn-rounded w-100"
                                         data-ripple-color="dark">Remove vehicle</button>
                                 </Form>

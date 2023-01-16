@@ -2,6 +2,7 @@ import { redirect } from "react-router-dom"
 import { Service } from "../data"
 import { driverValidations } from "../presentation/views/helper"
 import { getAccountInfo } from "./authUsecase"
+import Swal from "sweetalert2"
 
 const getDrivers = async () => {
     try {
@@ -34,7 +35,7 @@ const putDriver = async ({ request, params }) => {
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
         const { error, isValid } = driverValidations(fields)
-        
+
         if (isValid) {
             await Service.putDriver(access_token, params.id, fields, `multipart/form-data`)
 
@@ -51,13 +52,27 @@ const approveDriver = async ({ request, params }) => {
         const { access_token } = getAccountInfo()
         const formData = await request.formData()
         const fields = Object.fromEntries(formData)
-        console.log(JSON.stringify(fields))
-        if (fields.role) {
-            await Service.putDriver(access_token, params.id, fields, `multipart/form-data`)
+        return await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Yes, approve it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                if (fields.role) {
+                    await Service.putDriver(access_token, params.id, fields, `multipart/form-data`)
 
-            return redirect(`../info/${params.id}`)
-        }
-        return null
+                    return redirect(`../info/${params.id}`)
+                }
+                return null
+            }
+            return null
+        }).catch(error => {
+            const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
+            return { error: { message } }
+        })
     } catch (error) {
         const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
@@ -66,13 +81,28 @@ const approveDriver = async ({ request, params }) => {
 const deleteDriver = async ({ params }) => {
     try {
         const { access_token } = getAccountInfo()
+        return await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
 
-        console.log(`delete driver ${params.id}`)
-        const response = await Service.deleteDriver(access_token, params.id)
-        if (!response.data) {
-            return { error: { message: "There was an error occurred." } }
-        }
-        return redirect(`../list`)
+                console.log(`delete driver ${params.id}`)
+                const response = await Service.deleteDriver(access_token, params.id)
+                if (!response.data) {
+                    return { error: { message: "There was an error occurred." } }
+                }
+                return redirect(`../list`)
+            }
+            return null
+        }).catch(error => {
+            const message = error.response && error.response.data ? error.response.data.error : `An error occurred.`
+            return { error: { message } }
+        })
     } catch (error) {
         const message = error.response.data ? error.response.data.error : `An error occurred.`
         return { error: { message } }
@@ -93,12 +123,12 @@ const searchDriver = async ({ request }) => {
         return { error: { message } }
     }
 }
-const driverInfoAction = async ({request, params}) => {
-    switch(request.method){
+const driverInfoAction = async ({ request, params }) => {
+    switch (request.method) {
         case 'DELETE':
-            return await deleteDriver({params})
+            return await deleteDriver({ params })
         case 'PUT':
-            return await approveDriver({request, params})
+            return await approveDriver({ request, params })
         default:
             return { error: { message: `default action` } }
     }
