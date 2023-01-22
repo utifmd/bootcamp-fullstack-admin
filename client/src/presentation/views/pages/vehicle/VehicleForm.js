@@ -97,7 +97,6 @@ const VehicleForm = ({ vehicle, isEdit, errorLoader }) => {
                 : null}
             <button disabled={navigation.state === "submitting" || navigation.state === "loading"} className="btn btn-lg btn-primary mt-3" type="submit">
                 {(
-                    navigation.state === "loading" ||
                     navigation.state === "submitting") &&
                     <div className="spinner-border text-light spinner-border-sm" />}Save</button>
             <hr className="my-4" />

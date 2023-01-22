@@ -29,7 +29,6 @@ const Edit = () => {
                     className="btn btn-lg btn-primary mt-3"
                     disabled={navigation.state === "loading" || navigation.state === "submitting"}
                     type="submit">{(
-                        navigation.state === "loading" ||
                         navigation.state === "submitting") &&
                         <div className="spinner-border text-light spinner-border-sm" />}Save</button>
 
