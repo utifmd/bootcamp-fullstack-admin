@@ -57,6 +57,7 @@ const Change = () => {
                     <button
                         className="w-100 btn btn-lg btn-primary mt-3"
                         type="submit">{(
+                            navigation.state === "loading" || 
                             navigation.state === "submitting") && 
                             <div className="spinner-border text-light spinner-border-sm"/>} Change password</button>
 

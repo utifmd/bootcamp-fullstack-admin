@@ -25,10 +25,6 @@ const Item = ({ vehicle, actionData, navigation }) => {
                                     vehicle.status !== "standby"
                                 }
                                 className={`btn ${vehicle.status === "standby" ? 'btn-primary' : 'btn-danger'}`}>
-                                {(
-                                    navigation.state === "loading" ||
-                                    navigation.state === "submitting") &&
-                                    <div className="spinner-border text-light spinner-border-sm" />} 
                                     {vehicle.status === "standby" ? `Take` : `Taken`}
                             </button>
                         </Form>

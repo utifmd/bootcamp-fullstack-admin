@@ -75,10 +75,7 @@ const UserForm = ({ user, loaderErrorMessage }) => {
                 <button
                     className="btn btn-lg btn-primary mt-3"
                     disabled={navigation.state === "submitting"}
-                    type="submit">{(
-                        navigation.state === "loading" || 
-                        navigation.state === "submitting") && 
-                        <div className="spinner-border text-light spinner-border-sm"/>}Save</button>
+                    type="submit">Save</button>
 
                 <hr className="my-4" />
                 <small className="text-muted">© 2023-{new Date().getFullYear()}</small>
